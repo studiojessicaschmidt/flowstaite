@@ -1,0 +1,68 @@
+---
+/**
+ * Link
+ *
+ * Navigations- oder Text-Link. Erkennt externe Links automatisch und
+ * setzt dann target="_blank" mit rel="noopener noreferrer". Die Erkennung
+ * lässt sich über die Prop `external` manuell überschreiben.
+ *
+ * Varianten:
+ * - "inline": erbt das Standard-Link-Styling aus global.css (Unterstrich,
+ *   Akzentfarbe). Gedacht für Links im Fließtext.
+ * - "standalone": dezent prominenter, z. B. für Footer-Links oder
+ *   CTA-artige Links neben Buttons.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type LinkVariant = "inline" | "standalone";
+
+interface Props extends HTMLAttributes<"a"> {
+  /** Ziel-URL. Pflicht. */
+  href: string;
+  /** Externe Links, wenn gesetzt, überschreibt die automatische Erkennung. */
+  external?: boolean;
+  /** Visuelle Variante. Default "inline". */
+  variant?: LinkVariant;
+}
+
+const {
+  href,
+  external: externalProp,
+  variant = "inline",
+  class: extraClass,
+  ...rest
+} = Astro.props;
+
+// Erkennt absolute http/https-URLs als extern.
+const isExternal = externalProp ?? /^https?:\/\//i.test(href);
+
+const externalAttrs = isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+<a href={href} class:list={["link", `link--${variant}`, extraClass]} {...externalAttrs} {...rest}>
+  <slot />
+</a>
+
+<style>
+  /*
+   * Inline-Variante nutzt die globalen <a>-Styles aus global.css.
+   * Kein eigenes Styling, damit Fließtext-Links konsistent bleiben.
+   */
+
+  .link--standalone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-thickness var(--duration-fast) var(--ease-standard);
+  }
+
+  .link--standalone:hover {
+    text-decoration-thickness: 2px;
+  }
+</style>

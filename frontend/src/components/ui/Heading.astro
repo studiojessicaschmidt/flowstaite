@@ -1,0 +1,76 @@
+---
+/**
+ * Heading
+ *
+ * Semantische Überschrift h1 bis h6 mit optional abweichendem Visual-Level.
+ * Semantik (`level`) und Darstellung (`visualLevel`) sind entkoppelt, damit
+ * die Dokument-Outline korrekt bleibt, auch wenn eine Überschrift kleiner
+ * oder größer wirken soll als ihre Ebene vermuten lässt.
+ *
+ * Beispiel:
+ *   <Heading level={2} visualLevel={4}>Sektions-Titel</Heading>
+ *   rendert als <h2>, sieht aber wie h4 aus.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
+interface Props extends HTMLAttributes<"h1"> {
+  /** Semantisches Heading-Level, 1 bis 6. Pflicht. */
+  level: HeadingLevel;
+  /** Visuelles Level, 1 bis 6. Default: gleich wie `level`. */
+  visualLevel?: HeadingLevel;
+}
+
+const { level, visualLevel, class: extraClass, ...rest } = Astro.props;
+
+// Tag dynamisch aus dem semantischen Level ableiten.
+const Tag = `h${level}` as const;
+// Visual-Klasse steuert die Schriftgröße unabhängig vom Tag.
+const visualClass = `heading--h${visualLevel ?? level}`;
+---
+
+<Tag class:list={["heading", visualClass, extraClass]} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  /*
+   * Basis-Styles wiederholen, was in global.css für h1-h6 gilt, damit die
+   * Komponente auch dann korrekt aussieht, wenn sie mit abweichendem
+   * visualLevel im DOM erscheint. Spezifität durch Klasse schlägt das
+   * Element-Selektor-Styling aus global.css.
+   */
+  .heading {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+  }
+
+  .heading--h1 {
+    font-size: var(--text-4xl);
+  }
+
+  .heading--h2 {
+    font-size: var(--text-3xl);
+  }
+
+  .heading--h3 {
+    font-size: var(--text-2xl);
+  }
+
+  .heading--h4 {
+    font-size: var(--text-xl);
+  }
+
+  .heading--h5 {
+    font-size: var(--text-lg);
+  }
+
+  .heading--h6 {
+    font-size: var(--text-base);
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+/**
+ * Container
+ *
+ * Rahmen-Komponente mit maximaler Lesebreite und horizontalem Innenabstand.
+ * Wird um Seiten-Sections gelegt, damit Inhalte auf breiten Bildschirmen
+ * nicht unbegrenzt fließen. Alle Breiten und Abstände stammen aus Tokens.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+/** Semantische Root-Tags, die als Container sinnvoll sind. */
+type ContainerTag = "div" | "section" | "article" | "main" | "header" | "footer" | "nav" | "aside";
+
+/** Max-Width-Variante. "full" deaktiviert die Begrenzung. */
+type ContainerSize = "narrow" | "default" | "wide" | "full";
+
+interface Props extends HTMLAttributes<"div"> {
+  /** HTML-Tag des Root-Elements. Default "div". */
+  as?: ContainerTag;
+  /** Max-Breite. Default "default" nutzt --container-max aus den Tokens. */
+  size?: ContainerSize;
+}
+
+const { as: Tag = "div", size = "default", class: extraClass, ...rest } = Astro.props;
+---
+
+<Tag class:list={["container", `container--${size}`, extraClass]} {...rest}>
+  <slot />
+</Tag>
+
+<style>
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--container-pad-inline);
+  }
+
+  .container--narrow {
+    /* 60 % der Default-Breite, für Fließtext-Seiten wie Impressum. */
+    max-width: calc(var(--container-max) * 0.6);
+  }
+
+  .container--default {
+    max-width: var(--container-max);
+  }
+
+  .container--wide {
+    /* 20 % breiter als Default, für Dashboard-artige Seiten. */
+    max-width: calc(var(--container-max) * 1.2);
+  }
+
+  .container--full {
+    max-width: none;
+    padding-inline: 0;
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+/**
+ * ImagePlaceholder
+ *
+ * Sichtbarer Platzhalter für Bilder, die im Kundenprojekt noch fehlen.
+ * Bleibt bewusst auffällig (gestrichelter Rand, Mono-Schrift, Kunden-Hinweis),
+ * damit leere Bildstellen nicht versehentlich ins Live-Projekt gelangen.
+ *
+ * Die Rolle "img" plus aria-label macht den Platzhalter für Screenreader
+ * erkennbar, ohne dass dort ein echtes <img>-Element ohne src landet.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"div"> {
+  /**
+   * Aspect-Ratio als CSS-Wert, z. B. "16 / 9", "1 / 1", "4 / 3".
+   * Default "16 / 9".
+   */
+  ratio?: string;
+  /**
+   * Beschriftungstext. Wird zugleich als aria-label genutzt.
+   * Default: Kunden-Hinweis im Template-Stil.
+   */
+  label?: string;
+}
+
+const {
+  ratio = "16 / 9",
+  label = "[KUNDE: Bild einsetzen]",
+  class: extraClass,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  class:list={["image-placeholder", extraClass]}
+  style={`aspect-ratio: ${ratio};`}
+  role="img"
+  aria-label={label}
+  {...rest}
+>
+  <span class="image-placeholder__label">{label}</span>
+</div>
+
+<style>
+  .image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: var(--space-sm);
+    background-color: var(--color-surface-alt);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+
+  .image-placeholder__label {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+</style>

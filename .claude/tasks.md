@@ -5,7 +5,7 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 
 - [x] **Einheit 1: Projekt-Grundgerüst** (Astro-Setup, Ordnerstruktur, Prettier, tsconfig strict, .gitignore, CLAUDE.md, architecture-plan.md)
 - [x] **Einheit 2: Token-System und Styles** (tokens.css mit neutralen Defaults, reset.css, global.css)
-- [ ] **Einheit 3: UI-Basiskomponenten** (Button, Link, Container, Heading, Tag, ImagePlaceholder)
+- [x] **Einheit 3: UI-Basiskomponenten** (Button, Link, Container, Heading, Tag, ImagePlaceholder)
 - [ ] **Einheit 4: Layout-System** (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead)
 - [ ] **Einheit 5: Pflicht-Seiten** (index, 404, impressum, datenschutz mit sichtbaren Platzhaltern)
 - [ ] **Einheit 6: Dokumentation und Referenz-Dateien** in `.claude/docs/`
@@ -56,3 +56,31 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 **Nicht behoben, weil Einheit-1-Altlast:** Prettier-Warnung zu `architecture-plan.md` (Tabellen-Padding). Separat durch `prettier --write .claude/architecture-plan.md` im Repo-Root behebbar.
 
 **Nächste Einheit:** Einheit 3, UI-Basiskomponenten (Button, Link, Container, Heading, Tag, ImagePlaceholder).
+
+### 2026-04-19, Einheit 3 abgeschlossen
+
+**Was entstanden ist:**
+
+- `frontend/src/components/ui/Container.astro`: Rahmen-Komponente mit polymorphem Root-Tag (`as`: div, section, article, main, header, footer, nav, aside) und vier Max-Breiten (narrow, default, wide, full). Default nutzt `--container-max`, Padding-Inline aus `--container-pad-inline`.
+- `frontend/src/components/ui/Heading.astro`: Semantische h1-h6-Überschrift mit entkoppeltem `visualLevel`. Klassenbasierte Schriftgrößen schlagen die Element-Selektoren aus `global.css`, sodass z. B. ein h2 wie h4 aussehen kann, ohne die Dokument-Outline zu brechen.
+- `frontend/src/components/ui/Button.astro`: Button-Element (nie als Link zweckentfremdet). Drei Varianten (primary, secondary, ghost), drei Größen (sm, md, lg), Default `type="button"`, Disabled-State mit reduzierter Opacity und Cursor-Verhalten.
+- `frontend/src/components/ui/Link.astro`: Text- oder Navigationslink. Externe Links werden anhand absoluter http/https-URLs automatisch erkannt und bekommen `target="_blank"` plus `rel="noopener noreferrer"`. Zwei Varianten: inline (erbt Global-Styles) und standalone (eigenständiger Medium-Weight-Look).
+- `frontend/src/components/ui/Tag.astro`: Kleines Label als `<span>`. Drei Varianten (default, subtle, accent), Uppercase-Schrift auf Token-Skala, Pill-Radius.
+- `frontend/src/components/ui/ImagePlaceholder.astro`: Sichtbarer Bild-Platzhalter mit gestricheltem Rand, Mono-Schrift und Kunden-Hinweis. Rendert als `<div role="img" aria-label="...">` mit konfigurierbarer Aspect-Ratio (Default 16/9) und Label (Default `[KUNDE: Bild einsetzen]`).
+- `frontend/src/pages/index.astro`: Temporäre Demo-Seite, die alle sechs Komponenten zeigt. Wird in Einheit 5 durch die echte Startseite ersetzt. Kommentar zur Stil-Import-Umstellung in Einheit 4 bleibt erhalten.
+
+**Technische Details:**
+
+- Alle Komponenten erweitern `HTMLAttributes<Tag>` aus `astro/types`, damit Standard-HTML-Attribute typsicher durchgereicht werden. Eigene Props (variant, size, level, visualLevel, ratio, label) sind deutsch kommentiert.
+- Keine Hex-Werte, keine Magic Numbers. Alle Farben, Abstände, Typografie-Werte kommen aus `tokens.css`.
+- Kein JavaScript in den Komponenten. HTML, CSS und Skripting bleiben getrennt.
+- Einzelverantwortung: jede Komponente hat genau eine Aufgabe und ist unabhängig nutzbar.
+
+**Zu prüfen:**
+
+- `npm run astro check` im `frontend/`: grün, 9 Dateien, keine Errors oder Warnings.
+- `npm run build` im `frontend/`: grün, Seite baut in unter 1 s.
+- `npm run format:check` im `frontend/`: grün, alle Dateien Prettier-konform.
+- `npm run dev` im `frontend/`: die Demo-Seite auf `http://localhost:4321` zeigt alle sechs Komponenten. Keyboard-Tab durch die Seite zeigt sichtbaren Fokus-Ring auf Buttons und Links. Externe Links öffnen in neuem Tab.
+
+**Nächste Einheit:** Einheit 4, Layout-System (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead).
