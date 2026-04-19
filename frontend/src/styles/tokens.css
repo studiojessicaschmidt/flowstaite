@@ -1,0 +1,153 @@
+/*
+ * Design Tokens
+ *
+ * Alleinige Styling-Quelle des Templates. Alle Farben, Abstände,
+ * Typografie- und Layout-Werte liegen hier als CSS Custom Properties.
+ * Komponenten greifen ausschließlich über var(--token-name) zu,
+ * keine Hex-Werte und keine Magic Numbers im Component-Code.
+ *
+ * Werte sind neutrale Defaults. Pro Kundenprojekt werden sie in einem
+ * eigenen Override (z. B. :root in global.css oder projekteigene CSS)
+ * überschrieben, nicht hier.
+ */
+
+:root {
+  /* ------------------------------------------------------------------
+   * Farben
+   * Neutrale Graustufen als Defaults. Kunden-Akzentfarbe kommt später
+   * über --color-accent. Kontraste sind auf WCAG 2.1 AA ausgelegt.
+   * ------------------------------------------------------------------ */
+
+  /* Text */
+  --color-text: #1a1a1a;
+  --color-text-muted: #595959;
+  --color-text-inverse: #ffffff;
+
+  /* Hintergrund */
+  --color-bg: #ffffff;
+  --color-surface: #f7f7f7;
+  --color-surface-alt: #ededed;
+
+  /* Rand */
+  --color-border: #d9d9d9;
+  --color-border-strong: #8c8c8c;
+
+  /* Akzent (vom Kunden überschreiben, z. B. Primärfarbe) */
+  --color-accent: #1a1a1a;
+  --color-accent-contrast: #ffffff;
+
+  /* Fokus-Ring, deutlich sichtbar auf hellem Hintergrund */
+  --color-focus: #0057ff;
+
+  /* System-States, neutrale Defaults für Formulare und Hinweise */
+  --color-success: #1f7a4d;
+  --color-warning: #8a6200;
+  --color-error: #b42318;
+
+  /* ------------------------------------------------------------------
+   * Typografie
+   * System-Font-Stack als Default. Kundenprojekte ersetzen --font-sans
+   * durch einen lokal via @fontsource oder WOFF2 geladenen Font.
+   * ------------------------------------------------------------------ */
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Schriftgrößen, modulare Skala mit Ratio 1.25 (Major Third), in rem */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  /* Zeilenhöhen */
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-loose: 1.75;
+
+  /* Schriftstärken */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  /* Laufweite */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+
+  /* ------------------------------------------------------------------
+   * Abstände
+   * 8pt-nahe Skala, rem-basiert, für Margins, Paddings und Gaps.
+   * ------------------------------------------------------------------ */
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* ------------------------------------------------------------------
+   * Radien
+   * ------------------------------------------------------------------ */
+
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  /* ------------------------------------------------------------------
+   * Layout
+   * Breakpoints stehen als Kommentar, da CSS Custom Properties nicht
+   * in @media-Queries auswertbar sind. Wert-Gleichheit über Kommentare
+   * sicherstellen:
+   *   --bp-sm: 40em   (640px)
+   *   --bp-md: 48em   (768px)
+   *   --bp-lg: 64em  (1024px)
+   *   --bp-xl: 80em  (1280px)
+   * ------------------------------------------------------------------ */
+
+  --container-max: 72rem;
+  --container-pad-inline: clamp(1rem, 4vw, 2rem);
+
+  /* ------------------------------------------------------------------
+   * Schatten, dezent
+   * ------------------------------------------------------------------ */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+
+  /* ------------------------------------------------------------------
+   * Motion
+   * Kurze, zurückhaltende Defaults. Für prefers-reduced-motion siehe
+   * reset.css.
+   * ------------------------------------------------------------------ */
+
+  --duration-fast: 150ms;
+  --duration-medium: 250ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ------------------------------------------------------------------
+   * Z-Index-Skala
+   * Feste Stufen, damit Layer-Reihenfolge im Template konsistent bleibt.
+   * ------------------------------------------------------------------ */
+
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+}

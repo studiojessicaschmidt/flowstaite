@@ -8,16 +8,16 @@ Wiederverwendbares Monorepo-Fundament für alle zukünftigen Website-Kundenproje
 
 ## Tech-Stack
 
-| Bereich           | Auswahl                                       | Begründung                                                    |
-| ----------------- | --------------------------------------------- | ------------------------------------------------------------- |
+| Bereich           | Auswahl                                       | Begründung                                                      |
+| ----------------- | --------------------------------------------- | --------------------------------------------------------------- |
 | Framework         | Astro, neueste stabile Version                | Content-first, minimaler JS-Overhead, gute SEO- und Perf-Werte. |
-| CMS               | Sanity v3, optional als Modul                 | Nur integrieren, wenn Kundin ein Headless-CMS braucht.        |
-| Styling           | Vanilla CSS mit Custom Properties             | Kein Tailwind. Tokens als einzige Styling-Quelle.             |
-| Sprache           | TypeScript im Strict Mode, minimal eingesetzt | Typ-Sicherheit dort, wo sie hilft. Kein Overengineering.      |
-| Formatter         | Prettier                                      | Kein ESLint. Reiner Formatter reicht.                         |
-| Fonts             | Lokal via @fontsource oder WOFF2              | DSGVO-konform, keine externen Font-CDNs.                      |
-| Deployment        | Vercel oder Netlify                           | Beide mit GitHub-Preview-Deployments.                         |
-| Versionskontrolle | GitHub                                        | Preview-Deployments pro Branch.                               |
+| CMS               | Sanity v3, optional als Modul                 | Nur integrieren, wenn Kundin ein Headless-CMS braucht.          |
+| Styling           | Vanilla CSS mit Custom Properties             | Kein Tailwind. Tokens als einzige Styling-Quelle.               |
+| Sprache           | TypeScript im Strict Mode, minimal eingesetzt | Typ-Sicherheit dort, wo sie hilft. Kein Overengineering.        |
+| Formatter         | Prettier                                      | Kein ESLint. Reiner Formatter reicht.                           |
+| Fonts             | Lokal via @fontsource oder WOFF2              | DSGVO-konform, keine externen Font-CDNs.                        |
+| Deployment        | Vercel oder Netlify                           | Beide mit GitHub-Preview-Deployments.                           |
+| Versionskontrolle | GitHub                                        | Preview-Deployments pro Branch.                                 |
 
 ## Sprach-Konventionen
 
