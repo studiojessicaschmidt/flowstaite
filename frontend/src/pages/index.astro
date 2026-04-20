@@ -1,21 +1,82 @@
 ---
-// Temporärer Import. Zieht in Einheit 4 nach BaseLayout.astro um.
-// Reihenfolge: Tokens zuerst, dann Reset, dann Global.
-import "../styles/tokens.css";
-import "../styles/reset.css";
-import "../styles/global.css";
+/*
+ * Temporäre Demo-Seite des Layout-Systems und der UI-Basiskomponenten.
+ * Wird in Einheit 5 durch die echte Startseite mit Platzhaltern ersetzt.
+ *
+ * Die drei Basis-Stylesheets werden jetzt über BaseLayout geladen. Einzelne
+ * Seiten importieren keine CSS-Dateien mehr direkt.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+import Button from "../components/ui/Button.astro";
+import Link from "../components/ui/Link.astro";
+import Tag from "../components/ui/Tag.astro";
+import ImagePlaceholder from "../components/ui/ImagePlaceholder.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<BaseLayout
+  title="Studio Jessica Schmidt, Template-Demo"
+  description="Demo des Layout-Systems und der UI-Basiskomponenten, wird in Einheit 5 ersetzt."
+>
+  <Container as="div" size="default">
+    <Heading level={1}>Layout-System, Demo</Heading>
+    <p>
+      Diese Seite zeigt das Layout-System aus Einheit 4 (Header, Footer, SkipLink, SeoHead) zusammen
+      mit den UI-Basiskomponenten aus Einheit 3. In Einheit 5 wird sie durch die echte Startseite
+      mit [KUNDE: ...]-Platzhaltern ersetzt.
+    </p>
+
+    <section>
+      <Heading level={2}>Headings</Heading>
+      <Heading level={2} visualLevel={3}>h2 mit visualLevel 3</Heading>
+      <Heading level={3} visualLevel={5}>h3 mit visualLevel 5</Heading>
+    </section>
+
+    <section>
+      <Heading level={2}>Buttons</Heading>
+      <p>
+        <Button variant="primary" size="md">Primary</Button>
+        <Button variant="secondary" size="md">Secondary</Button>
+        <Button variant="ghost" size="md">Ghost</Button>
+      </p>
+      <p>
+        <Button variant="primary" size="sm">Small</Button>
+        <Button variant="primary" size="md">Medium</Button>
+        <Button variant="primary" size="lg">Large</Button>
+        <Button variant="primary" disabled>Disabled</Button>
+      </p>
+    </section>
+
+    <section>
+      <Heading level={2}>Links</Heading>
+      <p>
+        Fließtext mit
+        <Link href="/impressum">internem Link</Link>
+        und
+        <Link href="https://studiojessicaschmidt.de">externem Link</Link>
+        in der Inline-Variante.
+      </p>
+      <p>
+        Standalone-Variante:
+        <Link href="/datenschutz" variant="standalone">Zur Datenschutzerklärung</Link>
+      </p>
+    </section>
+
+    <section>
+      <Heading level={2}>Tags</Heading>
+      <p>
+        <Tag>Default</Tag>
+        <Tag variant="subtle">Subtle</Tag>
+        <Tag variant="accent">Accent</Tag>
+      </p>
+    </section>
+
+    <section>
+      <Heading level={2}>Image-Platzhalter</Heading>
+      <ImagePlaceholder ratio="16 / 9" />
+      <ImagePlaceholder ratio="1 / 1" label="[KUNDE: Quadratisches Team-Foto]" />
+    </section>
+  </Container>
+</BaseLayout>

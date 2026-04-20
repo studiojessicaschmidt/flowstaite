@@ -1,0 +1,45 @@
+---
+/**
+ * SeoHead
+ *
+ * Minimale SEO- und Meta-Tags für den <head>. Rendert Titel, Description,
+ * Canonical, Open-Graph-Basics, Viewport, Favicon und den Astro-Generator.
+ *
+ * Größerer SEO-Umfang (JSON-LD, Twitter-Cards, robots.txt-Abstimmung)
+ * kommt in einer späteren Einheit über den SEO-Check-Skill dazu.
+ */
+
+interface Props {
+  /** Seiten-Titel. Pflicht. Wird in <title> und og:title gerendert. */
+  title: string;
+  /** Kurze Seiten-Beschreibung. Pflicht. In <meta description> und og:description. */
+  description: string;
+  /** Absolute Canonical-URL. Optional, aber empfohlen pro Kundenprojekt. */
+  canonical?: string;
+  /** Absolute URL zu einem Open-Graph-Bild. Optional. */
+  ogImage?: string;
+  /** Wenn true, wird robots auf noindex,nofollow gesetzt. Default false. */
+  noindex?: boolean;
+}
+
+const { title, description, canonical, ogImage, noindex = false } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+
+{canonical && <link rel="canonical" href={canonical} />}
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonical && <meta property="og:url" content={canonical} />}
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />

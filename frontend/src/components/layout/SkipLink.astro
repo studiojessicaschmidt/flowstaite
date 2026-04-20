@@ -1,0 +1,63 @@
+---
+/**
+ * SkipLink
+ *
+ * Unsichtbarer Link am Anfang der Seite, der beim Fokus sichtbar wird und
+ * Tastatur- oder Screenreader-Nutzern erlaubt, Navigation zu überspringen
+ * und direkt zum Hauptinhalt zu springen.
+ *
+ * Zielt per Default auf #main-content, ein id-Attribut, das in BaseLayout
+ * am <main>-Element gesetzt ist.
+ */
+
+interface Props {
+  /** Ziel-Anker ohne Raute-Zeichen. Default "main-content". */
+  targetId?: string;
+  /** Sichtbarer Text des Links. Default deutsch. */
+  label?: string;
+}
+
+const { targetId = "main-content", label = "Zum Hauptinhalt springen" } = Astro.props;
+---
+
+<a class="skip-link" href={`#${targetId}`}>{label}</a>
+
+<style>
+  /*
+   * Grundzustand: visuell versteckt, aber für Screenreader und Fokus
+   * erreichbar. Übernimmt die Technik aus der .visually-hidden-Utility.
+   */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--space-sm);
+    inset-block-start: var(--space-sm);
+    z-index: var(--z-toast);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /*
+   * Bei Tastatur-Fokus sichtbar. Hoher Z-Index, damit der Link über
+   * sticky Header-Elementen liegt.
+   */
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    width: auto;
+    height: auto;
+    padding: var(--space-2xs) var(--space-sm);
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    text-decoration: underline;
+  }
+</style>

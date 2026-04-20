@@ -6,7 +6,7 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 - [x] **Einheit 1: Projekt-Grundgerüst** (Astro-Setup, Ordnerstruktur, Prettier, tsconfig strict, .gitignore, CLAUDE.md, architecture-plan.md)
 - [x] **Einheit 2: Token-System und Styles** (tokens.css mit neutralen Defaults, reset.css, global.css)
 - [x] **Einheit 3: UI-Basiskomponenten** (Button, Link, Container, Heading, Tag, ImagePlaceholder)
-- [ ] **Einheit 4: Layout-System** (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead)
+- [x] **Einheit 4: Layout-System** (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead)
 - [ ] **Einheit 5: Pflicht-Seiten** (index, 404, impressum, datenschutz mit sichtbaren Platzhaltern)
 - [ ] **Einheit 6: Dokumentation und Referenz-Dateien** in `.claude/docs/`
 - [ ] **Einheit 7: Projekt-spezifische Skills** in `.claude/skills/`
@@ -84,3 +84,35 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 - `npm run dev` im `frontend/`: die Demo-Seite auf `http://localhost:4321` zeigt alle sechs Komponenten. Keyboard-Tab durch die Seite zeigt sichtbaren Fokus-Ring auf Buttons und Links. Externe Links öffnen in neuem Tab.
 
 **Nächste Einheit:** Einheit 4, Layout-System (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead).
+
+### 2026-04-19, Einheit 4 abgeschlossen
+
+**Was entstanden ist:**
+
+- `frontend/src/components/seo/SeoHead.astro`: Minimale Meta-Tags. Pflicht-Props `title` und `description`, optionale Props `canonical`, `ogImage`, `noindex`. Rendert Charset, Viewport, Generator, `<title>`, Description, Canonical, Open-Graph-Basics (og:type, og:title, og:description, og:url, og:image), Favicon-Links und optional ein Robots-Noindex-Tag. JSON-LD und Twitter-Cards folgen in einer späteren Einheit über den SEO-Check-Skill.
+- `frontend/src/components/layout/SkipLink.astro`: Tastatur-Sprung-Link zum Hauptinhalt. Im Grundzustand visuell versteckt (gleiche Technik wie `.visually-hidden`), bei Fokus sichtbar mit klarem Fokus-Styling. Props `targetId` (Default `"main-content"`) und `label` (Default `"Zum Hauptinhalt springen"`).
+- `frontend/src/scripts/header-nav.ts`: Eigenständiges TypeScript-Modul für das Mobile-Nav-Toggle. Hält HTML, CSS und JS strikt getrennt. Steuert den offenen Zustand über `aria-expanded` am Toggle und `data-state="open|closed"` am Nav-Element. Verhalten: Klick auf Toggle öffnet/schließt, `Escape` schließt und gibt Fokus zurück, Klick außerhalb schließt. Self-init auf `DOMContentLoaded`.
+- `frontend/src/components/layout/Header.astro`: Sticky `<header>` mit Text-Wortmarke (Default-Platzhalter `[KUNDE: Markenname]`), Burger-Toggle (drei Balken, `aria-controls`, `aria-expanded`, `aria-label`), und `<nav aria-label="Hauptnavigation">` mit vier Default-Einträgen (Start, Über, Leistungen, Kontakt). Props `brandName`, `brandHref`, `navItems` überschreibbar. Responsive: unter 48em versteckte Nav hinter Toggle, ab 48em permanent sichtbare horizontale Liste. `<script>` importiert `../../scripts/header-nav`, Astro bündelt das Skript in den Seiten-Output.
+- `frontend/src/components/layout/Footer.astro`: Drei-Spalten-Grid (ab 48em) mit: (1) rechtliche Links (Impressum, Datenschutz, AGB, Erklärung zur Barrierefreiheit), (2) Social-Links (Instagram, LinkedIn, Pinterest als sichtbare `[KUNDE: ...-URL]`-Platzhalter), (3) Studio-Credit-Block mit `© {Jahr} [KUNDE: Markenname]` und dem Pflichttext „Website erstellt und designed von Studio Jessica Schmidt" mit Link auf studiojessicaschmidt.de. Props `legalLinks` und `socialLinks` überschreibbar.
+- `frontend/src/layouts/BaseLayout.astro`: Grundgerüst für alle Seiten. Importiert die drei Basis-Stylesheets (tokens, reset, global) einmal zentral. Rendert `<html lang>`, `<head>` via `SeoHead`, `<body>` mit `SkipLink`, `Header`, `<main id="main-content">` (nimmt Slot), `Footer`. Pflicht-Props `title` und `description`, optional `lang` (Default `"de"`), `canonical`, `ogImage`, `noindex`.
+- `frontend/src/pages/index.astro`: Auf `BaseLayout` umgestellt. Die früher direkt in der Seite importierten CSS-Dateien sind entfernt, sie werden jetzt über das Layout geladen. Demo-Inhalt bleibt als Übergang bis Einheit 5 erhalten.
+
+**Technische Details:**
+
+- Alle neuen Komponenten sind tokenbasiert, keine Hex-Werte oder Magic Numbers. Breakpoint `48em` ist der in `tokens.css` dokumentierte `--bp-md`.
+- Das Mobile-Nav-Toggle ist die einzige Stelle mit Interaktivität. Das JavaScript liegt als separate `.ts`-Datei in `src/scripts/` und wird per `import` aus einem `<script>`-Tag in `Header.astro` referenziert. Astro bündelt das Skript automatisch und inlined es in der aktuellen Größe direkt in `index.html`.
+- Accessibility: SkipLink mit Fokus-Styling, `aria-expanded` und `aria-controls` am Toggle, `aria-label` auf beiden `<nav>`-Elementen im Header und Footer, `<main id="main-content">` als Sprung-Ziel, sichtbare Fokus-Ringe über `global.css`.
+
+**Zu prüfen:**
+
+- `npm run astro check` im `frontend/`: grün, 15 Dateien, keine Errors oder Warnings.
+- `npm run build` im `frontend/`: grün, Seite baut in unter 1 s.
+- `npm run format:check` im `frontend/`: grün (nach automatischem Prettier-Write auf `Header.astro` und `BaseLayout.astro` direkt nach dem Anlegen).
+- `npm run dev` im `frontend/`: Startseite lädt. Tab-Navigation zeigt sichtbaren SkipLink als erstes Element, dann Wortmarke, Toggle (nur auf schmalem Viewport), Nav-Links. Unter 48em-Viewport öffnet der Burger-Toggle das Nav-Panel, `Escape` und Klick außerhalb schließen es. Footer zeigt Studio-Credit und vier rechtliche Links plus drei Social-Platzhalter.
+
+**Offene Fragen für spätere Einheiten:**
+
+- Einheit 5 ist aktuell auf index, 404, impressum, datenschutz geplant. Die Footer-Links zeigen zusätzlich auf `/agb` und `/barrierefreiheit` (auf Wunsch dazugenommen). Diese beiden Pflicht-Seiten sollten in Einheit 5 mit angelegt werden, damit im Template keine toten Links stehen.
+- Social-Kanäle im Footer-Default sind Instagram, LinkedIn, Pinterest. Falls für Studio Jessica Schmidt andere Kanäle gelten (z. B. Behance, Dribbble), in Einheit 5 oder später anpassen.
+
+**Nächste Einheit:** Einheit 5, Pflicht-Seiten (index, 404, impressum, datenschutz; ggf. AGB und Barrierefreiheit ergänzen).

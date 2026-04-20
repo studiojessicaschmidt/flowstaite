@@ -1,0 +1,212 @@
+---
+/**
+ * Header
+ *
+ * Seiten-Kopf mit Text-Wortmarke und Primär-Navigation. Responsive:
+ * auf kleinen Viewports ist die Navigation hinter einem Toggle-Button
+ * versteckt, auf größeren Viewports ist sie immer sichtbar.
+ *
+ * Navigations-Einträge werden als Prop übergeben, damit pro Seite oder
+ * Kundenprojekt unterschiedliche Menüs möglich sind, ohne diese
+ * Komponente zu verändern. Default-Einträge decken die üblichen vier
+ * Top-Level-Seiten ab und sind als sichtbare Platzhalter formuliert.
+ *
+ * Interaktivität: siehe src/scripts/header-nav.ts. HTML, CSS und JS
+ * bleiben strikt getrennt.
+ */
+
+import Container from "../ui/Container.astro";
+
+interface NavItem {
+  /** Sichtbarer Link-Text. */
+  label: string;
+  /** Ziel-URL. Bei leerem Kundenprojekt auf "#" setzen. */
+  href: string;
+}
+
+interface Props {
+  /** Sichtbarer Markenname im Header. Default ist ein sichtbarer Platzhalter. */
+  brandName?: string;
+  /** Ziel-URL der Wortmarke. Default Startseite. */
+  brandHref?: string;
+  /** Navigations-Einträge. Default vier neutrale Top-Level-Seiten. */
+  navItems?: readonly NavItem[];
+}
+
+const defaultNav: readonly NavItem[] = [
+  { label: "Start", href: "/" },
+  { label: "Über", href: "/ueber" },
+  { label: "Leistungen", href: "/leistungen" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+
+const { brandName = "[KUNDE: Markenname]", brandHref = "/", navItems = defaultNav } = Astro.props;
+---
+
+<header class="site-header">
+  <Container as="div" size="default" class="site-header__inner">
+    <a class="site-header__brand" href={brandHref}>{brandName}</a>
+
+    <button
+      class="site-header__toggle"
+      type="button"
+      data-nav-toggle
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      aria-label="Menü öffnen"
+    >
+      <span class="site-header__toggle-bar" aria-hidden="true"></span>
+      <span class="site-header__toggle-bar" aria-hidden="true"></span>
+      <span class="site-header__toggle-bar" aria-hidden="true"></span>
+    </button>
+
+    <nav
+      class="site-header__nav"
+      id="primary-navigation"
+      data-nav-primary
+      data-state="closed"
+      aria-label="Hauptnavigation"
+    >
+      <ul class="site-header__list">
+        {
+          navItems.map((item) => (
+            <li class="site-header__item">
+              <a class="site-header__link" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </Container>
+</header>
+
+<script>
+  import "../../scripts/header-nav";
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-sticky);
+    background-color: var(--color-bg);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: var(--space-sm);
+  }
+
+  .site-header__brand {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .site-header__brand:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* ------------------------------------------------------------------
+   * Toggle-Button, nur bis 48em sichtbar.
+   * ------------------------------------------------------------------ */
+
+  .site-header__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: var(--space-md);
+    height: var(--space-md);
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+
+  .site-header__toggle-bar {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: var(--radius-sm);
+  }
+
+  /* ------------------------------------------------------------------
+   * Navigation
+   * Mobile-Default: versteckt, öffnet sich als Drop-Panel unter dem Header.
+   * Ab 48em: permanent sichtbar, horizontale Liste.
+   * ------------------------------------------------------------------ */
+
+  .site-header__nav[data-state="closed"] {
+    display: none;
+  }
+
+  .site-header__nav[data-state="open"] {
+    display: block;
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 100%;
+    background-color: var(--color-bg);
+    border-block-end: 1px solid var(--color-border);
+    padding-block: var(--space-sm);
+  }
+
+  .site-header__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+    margin: 0;
+    padding-inline: var(--container-pad-inline);
+    list-style: none;
+  }
+
+  .site-header__item + .site-header__item {
+    margin-block-start: 0;
+  }
+
+  .site-header__link {
+    display: inline-block;
+    padding-block: var(--space-2xs);
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+  }
+
+  .site-header__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* 48em entspricht --bp-md aus tokens.css. */
+  @media (min-width: 48em) {
+    .site-header__toggle {
+      display: none;
+    }
+
+    .site-header__nav,
+    .site-header__nav[data-state="closed"],
+    .site-header__nav[data-state="open"] {
+      display: block;
+      position: static;
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+
+    .site-header__list {
+      flex-direction: row;
+      gap: var(--space-md);
+      padding-inline: 0;
+    }
+  }
+</style>
