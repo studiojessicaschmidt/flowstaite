@@ -1,0 +1,39 @@
+---
+/*
+ * 404-Seite
+ *
+ * Wird von statischen Hostern (Netlify, Vercel etc.) als Fallback
+ * für unbekannte Routen ausgeliefert. Absichtlich minimal:
+ * kurzer Hinweis und ein Link zurück zur Startseite.
+ *
+ * noindex verhindert, dass Suchmaschinen diese Fehlerseite
+ * indexieren, falls sie über eine echte URL erreichbar wird.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+import Link from "../components/ui/Link.astro";
+---
+
+<BaseLayout
+  title="Seite nicht gefunden, [KUNDE: Markenname]"
+  description="Die angeforderte Seite existiert nicht oder wurde verschoben."
+  noindex
+>
+  <section class="section" aria-labelledby="notfound-heading">
+    <Container size="narrow">
+      <Heading level={1} id="notfound-heading">Seite nicht gefunden</Heading>
+      <p>Die angeforderte Seite existiert nicht oder wurde verschoben.</p>
+      <p>
+        <Link href="/" variant="standalone">Zurück zur Startseite</Link>
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-2xl);
+  }
+</style>

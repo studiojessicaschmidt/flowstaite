@@ -1,0 +1,39 @@
+---
+/*
+ * Erklärung zur Barrierefreiheit
+ *
+ * Für Anbieter, die unter das BFSG (Barrierefreiheitsstärkungsgesetz,
+ * gültig ab 28. Juni 2025) fallen, ist diese Seite Pflicht. Für
+ * andere Anbieter kann sie als Qualitätsnachweis dienen. Inhalt
+ * muss die tatsächliche Zugänglichkeit der Website beschreiben
+ * (Standards, bekannte Einschränkungen, Kontakt für Feedback).
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+---
+
+<BaseLayout
+  title="Erklärung zur Barrierefreiheit, [KUNDE: Markenname]"
+  description="Informationen zur Zugänglichkeit dieser Website."
+>
+  <section class="section" aria-labelledby="barrierefreiheit-heading">
+    <Container size="narrow">
+      <Heading level={1} id="barrierefreiheit-heading">Erklärung zur Barrierefreiheit</Heading>
+      <p>
+        [KUNDE: Erklärung zur Barrierefreiheit hier einfügen. Inhalt an die tatsächliche
+        Zugänglichkeit dieser Website anpassen, bekannte Einschränkungen benennen und einen Kontakt
+        für Feedback angeben. Für Anbieter, die unter das BFSG (Barrierefreiheitsstärkungsgesetz,
+        gültig ab 28. Juni 2025) fallen, ist diese Seite Pflicht. Diese Seite ist bewusst nicht
+        vorausgefüllt.]
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-2xl);
+  }
+</style>

@@ -18,8 +18,9 @@ Sanity v3 optional als CMS-Modul (nicht standardmäßig integriert).
 
 ## Studio-Credit (Pflicht im Footer jedes Projekts)
 
-Text: "Website erstellt und designed von Studio Jessica Schmidt"
+Text: "Design und Entwicklung: studio jessica schmidt"
 Link: https://studiojessicaschmidt.de
+Schreibweise der Marke durchgängig in Minuskeln, auch im Link-Text und in allen Kommentaren.
 
 ## Referenz-Dateien (bei Bedarf laden)
 

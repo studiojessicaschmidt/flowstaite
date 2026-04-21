@@ -33,6 +33,11 @@ interface Props {
   navItems?: readonly NavItem[];
 }
 
+// Default-Einträge zeigen auf Platzhalter-Routen, die im Template
+// absichtlich nicht alle als Seiten existieren. Nur "/" ist umgesetzt.
+// Im Kundenprojekt vor Go-Live durch reale Seiten ersetzen. Die
+// Handoff-Checkliste (Einheit 6) und PROJECT_SETUP.md (Einheit 8)
+// enthalten dazu einen Checkpunkt.
 const defaultNav: readonly NavItem[] = [
   { label: "Start", href: "/" },
   { label: "Über", href: "/ueber" },

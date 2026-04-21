@@ -7,7 +7,7 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 - [x] **Einheit 2: Token-System und Styles** (tokens.css mit neutralen Defaults, reset.css, global.css)
 - [x] **Einheit 3: UI-Basiskomponenten** (Button, Link, Container, Heading, Tag, ImagePlaceholder)
 - [x] **Einheit 4: Layout-System** (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead)
-- [ ] **Einheit 5: Pflicht-Seiten** (index, 404, impressum, datenschutz mit sichtbaren Platzhaltern)
+- [x] **Einheit 5: Pflicht-Seiten** (index, 404, impressum, datenschutz, agb, barrierefreiheit mit sichtbaren Platzhaltern)
 - [ ] **Einheit 6: Dokumentation und Referenz-Dateien** in `.claude/docs/`
 - [ ] **Einheit 7: Projekt-spezifische Skills** in `.claude/skills/`
 - [ ] **Einheit 8: Kick-off-System** (PROJECT_SETUP.md, HANDOFF_TEMPLATE.md, briefing-Vorlagen)
@@ -116,3 +116,51 @@ Zu Beginn jeder Session: diese Datei lesen und mit der nächsten offenen Einheit
 - Social-Kanäle im Footer-Default sind Instagram, LinkedIn, Pinterest. Falls für Studio Jessica Schmidt andere Kanäle gelten (z. B. Behance, Dribbble), in Einheit 5 oder später anpassen.
 
 **Nächste Einheit:** Einheit 5, Pflicht-Seiten (index, 404, impressum, datenschutz; ggf. AGB und Barrierefreiheit ergänzen).
+
+### 2026-04-20, Einheit 5 abgeschlossen
+
+**Was entstanden ist:**
+
+- `frontend/src/pages/index.astro`: Ersetzt die Demo-Seite aus Einheit 3/4. Fünf Sections als Dienstleistungs-Funnel: Hero (Headline, Unterzeile, primärer CTA-Button, sekundärer Link, 16:9-Bild-Platzhalter), Über (Text plus 4:3-Bild-Platzhalter), Leistungen (drei Cards als `<article>` im 3er-Grid ab 48em), CTA (zentriert, `--color-surface` als Hintergrund, Container narrow), Kontakt-Teaser (Container narrow, Link zur Kontaktseite). Alle Sections mit `aria-labelledby` für Screenreader-Landmarks.
+- `frontend/src/pages/404.astro`: Minimaler Fehler-Text und Link zurück zur Startseite. `noindex` gesetzt, damit Suchmaschinen die Fehlerseite nicht indexieren.
+- `frontend/src/pages/impressum.astro`: Platzhalter-Seite mit Hinweis auf § 5 TMG. Container narrow. Keine vorbefüllten Pflichtangaben, weil die Verantwortung beim Anbieter liegt.
+- `frontend/src/pages/datenschutz.astro`: Platzhalter-Seite mit DSGVO-Hinweis. Container narrow. Erklärung muss auf die tatsächlich eingesetzten Dienste zugeschnitten werden.
+- `frontend/src/pages/agb.astro`: Optionale Platzhalter-Seite. Hinweis, Seite und Footer-Link zu entfernen, wenn AGB nicht benötigt.
+- `frontend/src/pages/barrierefreiheit.astro`: Platzhalter-Seite mit Hinweis auf BFSG (gültig ab 28. Juni 2025). Container narrow.
+
+**Technische Details:**
+
+- Alle sechs Seiten nutzen `BaseLayout` mit Pflicht-Props `title` und `description`. Platzhalter durchgängig im `[KUNDE: ...]`-Stil, kein Lorem Ipsum.
+- Section-Konvention: `<section class="section" aria-labelledby="...-heading">` mit `<Heading id="...-heading">`. Diese Konvention gehört in `component-patterns.md` (Einheit 6) und in den `create-page`-Skill (Einheit 7).
+- Seitenspezifisches CSS nur dort, wo Layout-Logik nötig ist (index.astro). Rein tokenbasiert, kein Hex-Wert, keine Magic Numbers. Breakpoint 48em referenziert `--bp-md` aus `tokens.css`.
+- Keine Gedankenstriche in Platzhaltern. Wort „authentisch" nicht genutzt.
+- 404-Seite wird von Astro beim Build als `dist/404.html` erzeugt und von Hostern wie Netlify oder Vercel als Fallback für unbekannte Routen ausgeliefert.
+
+**Offene Fragen aus Einheit 4, in Einheit 5 geklärt:**
+
+- AGB und Erklärung zur Barrierefreiheit wurden mit angelegt, damit die Footer-Links keine toten Ziele haben.
+- Social-Kanäle im Footer bleiben Instagram, LinkedIn, Pinterest als Template-Default. Bewusste Entscheidung: Das Template wird von Kundinnen genutzt, nicht intern. Der Footer-Credit verweist weiter auf Studio Jessica Schmidt.
+- Canonical-Basis-URL bleibt in Einheit 5 leer und wird erst pro Kundenprojekt gesetzt.
+
+**Zu prüfen:**
+
+- `npm run astro check` im `frontend/`: grün, 20 Dateien, 0 Errors, 0 Warnings, 0 Hints.
+- `npm run build` im `frontend/`: grün, sechs Seiten gebaut (index, 404, impressum, datenschutz, agb, barrierefreiheit), unter 1 s.
+- `npm run format:check` im `frontend/`: grün nach einmaligem `npm run format` (Prettier hat Zeilenumbrüche in langen Platzhaltertexten angepasst).
+- `npm run dev` im `frontend/`:
+  - Startseite zeigt alle fünf Sections mit sichtbaren `[KUNDE: ...]`-Platzhaltern.
+  - Footer-Links führen zu allen vier Rechts-Seiten, keine toten Links mehr.
+  - Produktions-Build: `/unbekannte-url` liefert die 404-Seite aus (Dev-Server zeigt Astro-Default-404).
+  - Tab-Navigation pro Seite: SkipLink zuerst, sichtbarer Fokus-Ring auf allen Links und Buttons.
+
+**Nachträge nach Review:**
+
+- Studio-Credit im Footer angepasst: neuer Text "Design und Entwicklung: studio jessica schmidt", Markenschreibweise durchgängig in Minuskeln. Die Änderung ist in `frontend/src/components/layout/Footer.astro` (Pflichttext und Kopfkommentar), `CLAUDE.md` (Pflicht-Credit-Abschnitt) und `.claude/architecture-plan.md` (Prinzip 6) nachgezogen.
+- `frontend/src/components/layout/Header.astro`: Kommentar über `defaultNav` ergänzt, der die Platzhalter-Routen erklärt und auf den Go-Live-Checkpunkt in Einheit 6 und 8 verweist.
+
+**Offene Punkte für spätere Einheiten:**
+
+- Einheit 6, `handoff-checklist.md`: Checkpunkt „Header-Nav-Items von Default-Platzhaltern (`/ueber`, `/leistungen`, `/kontakt`) auf reale Projekt-Seiten umstellen" aufnehmen.
+- Einheit 8, `PROJECT_SETUP.md`: gleichen Checkpunkt im Projekt-Kick-off-Ablauf verankern, damit er bei jedem neuen Kundenprojekt vorkommt.
+
+**Nächste Einheit:** Einheit 6, Dokumentation und Referenz-Dateien in `.claude/docs/`.

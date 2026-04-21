@@ -1,10 +1,15 @@
 ---
 /*
- * Temporäre Demo-Seite des Layout-Systems und der UI-Basiskomponenten.
- * Wird in Einheit 5 durch die echte Startseite mit Platzhaltern ersetzt.
+ * Startseite
  *
- * Die drei Basis-Stylesheets werden jetzt über BaseLayout geladen. Einzelne
- * Seiten importieren keine CSS-Dateien mehr direkt.
+ * Template-Gerüst für die Home-Page jedes Kundenprojekts. Enthält
+ * absichtlich keine echten Inhalte, sondern sichtbare [KUNDE: ...]-
+ * Platzhalter. Die Section-Reihenfolge (Hero, Über, Leistungen,
+ * CTA, Kontakt-Teaser) gibt einen typischen Dienstleistungs-Funnel
+ * vor und kann pro Projekt umgebaut werden.
+ *
+ * Sections sind semantisch als <section aria-labelledby="...">
+ * ausgezeichnet, damit Screenreader eine klare Struktur bekommen.
  */
 
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -12,71 +17,133 @@ import Container from "../components/ui/Container.astro";
 import Heading from "../components/ui/Heading.astro";
 import Button from "../components/ui/Button.astro";
 import Link from "../components/ui/Link.astro";
-import Tag from "../components/ui/Tag.astro";
 import ImagePlaceholder from "../components/ui/ImagePlaceholder.astro";
 ---
 
 <BaseLayout
-  title="Studio Jessica Schmidt, Template-Demo"
-  description="Demo des Layout-Systems und der UI-Basiskomponenten, wird in Einheit 5 ersetzt."
+  title="[KUNDE: Seiten-Titel der Startseite]"
+  description="[KUNDE: Kurze Meta-Description der Startseite, ein bis zwei Sätze.]"
 >
-  <Container as="div" size="default">
-    <Heading level={1}>Layout-System, Demo</Heading>
-    <p>
-      Diese Seite zeigt das Layout-System aus Einheit 4 (Header, Footer, SkipLink, SeoHead) zusammen
-      mit den UI-Basiskomponenten aus Einheit 3. In Einheit 5 wird sie durch die echte Startseite
-      mit [KUNDE: ...]-Platzhaltern ersetzt.
-    </p>
+  <section class="section section--hero" aria-labelledby="hero-heading">
+    <Container size="default">
+      <Heading level={1} id="hero-heading"> [KUNDE: Haupt-Headline für die Startseite] </Heading>
+      <p class="section__lead">
+        [KUNDE: Unterzeile, ein bis zwei Sätze, die das Kernangebot der Marke zusammenfassen.]
+      </p>
+      <p class="section__actions">
+        <Button variant="primary" size="lg">[KUNDE: Primärer CTA-Text]</Button>
+        <Link href="/leistungen" variant="standalone"> [KUNDE: Sekundärer Link-Text] </Link>
+      </p>
+      <ImagePlaceholder ratio="16 / 9" label="[KUNDE: Hero-Bild einsetzen]" />
+    </Container>
+  </section>
 
-    <section>
-      <Heading level={2}>Headings</Heading>
-      <Heading level={2} visualLevel={3}>h2 mit visualLevel 3</Heading>
-      <Heading level={3} visualLevel={5}>h3 mit visualLevel 5</Heading>
-    </section>
-
-    <section>
-      <Heading level={2}>Buttons</Heading>
+  <section class="section" aria-labelledby="about-heading">
+    <Container size="default">
+      <Heading level={2} id="about-heading"> [KUNDE: Überschrift Über-Section] </Heading>
       <p>
-        <Button variant="primary" size="md">Primary</Button>
-        <Button variant="secondary" size="md">Secondary</Button>
-        <Button variant="ghost" size="md">Ghost</Button>
+        [KUNDE: Kurzer Vorstellungstext, drei bis fünf Sätze, in denen die Marke, ihre Haltung und
+        ihr Fokus umrissen werden.]
+      </p>
+      <ImagePlaceholder ratio="4 / 3" label="[KUNDE: Porträt oder Arbeitsfoto]" />
+    </Container>
+  </section>
+
+  <section class="section" aria-labelledby="services-heading">
+    <Container size="default">
+      <Heading level={2} id="services-heading"> [KUNDE: Überschrift Leistungen-Section] </Heading>
+      <p>[KUNDE: Kurzer einleitender Satz zur Leistungs-Übersicht.]</p>
+
+      <div class="services">
+        <article class="service">
+          <Heading level={3}>[KUNDE: Leistung 1, Titel]</Heading>
+          <p>[KUNDE: Leistung 1, Beschreibung in zwei bis drei Sätzen.]</p>
+          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
+        </article>
+
+        <article class="service">
+          <Heading level={3}>[KUNDE: Leistung 2, Titel]</Heading>
+          <p>[KUNDE: Leistung 2, Beschreibung in zwei bis drei Sätzen.]</p>
+          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
+        </article>
+
+        <article class="service">
+          <Heading level={3}>[KUNDE: Leistung 3, Titel]</Heading>
+          <p>[KUNDE: Leistung 3, Beschreibung in zwei bis drei Sätzen.]</p>
+          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
+        </article>
+      </div>
+    </Container>
+  </section>
+
+  <section class="section section--cta" aria-labelledby="cta-heading">
+    <Container size="narrow">
+      <Heading level={2} id="cta-heading">
+        [KUNDE: CTA-Überschrift, z.B. Lust auf ein gemeinsames Projekt?]
+      </Heading>
+      <p>[KUNDE: Kurzer Text, der zum nächsten Schritt einlädt, ein bis zwei Sätze.]</p>
+      <p class="section__actions">
+        <Button variant="primary" size="lg">[KUNDE: CTA-Button-Text]</Button>
+      </p>
+    </Container>
+  </section>
+
+  <section class="section" aria-labelledby="contact-heading">
+    <Container size="narrow">
+      <Heading level={2} id="contact-heading"> [KUNDE: Überschrift Kontakt-Section] </Heading>
+      <p>
+        [KUNDE: Kurzer Text zur Kontaktaufnahme, z.B. bevorzugte Wege und übliche Reaktionszeit.]
       </p>
       <p>
-        <Button variant="primary" size="sm">Small</Button>
-        <Button variant="primary" size="md">Medium</Button>
-        <Button variant="primary" size="lg">Large</Button>
-        <Button variant="primary" disabled>Disabled</Button>
+        <Link href="/kontakt" variant="standalone">Zur Kontaktseite</Link>
       </p>
-    </section>
-
-    <section>
-      <Heading level={2}>Links</Heading>
-      <p>
-        Fließtext mit
-        <Link href="/impressum">internem Link</Link>
-        und
-        <Link href="https://studiojessicaschmidt.de">externem Link</Link>
-        in der Inline-Variante.
-      </p>
-      <p>
-        Standalone-Variante:
-        <Link href="/datenschutz" variant="standalone">Zur Datenschutzerklärung</Link>
-      </p>
-    </section>
-
-    <section>
-      <Heading level={2}>Tags</Heading>
-      <p>
-        <Tag>Default</Tag>
-        <Tag variant="subtle">Subtle</Tag>
-        <Tag variant="accent">Accent</Tag>
-      </p>
-    </section>
-
-    <section>
-      <Heading level={2}>Image-Platzhalter</Heading>
-      <ImagePlaceholder ratio="16 / 9" />
-      <ImagePlaceholder ratio="1 / 1" label="[KUNDE: Quadratisches Team-Foto]" />
-    </section>
-  </Container>
+    </Container>
+  </section>
 </BaseLayout>
+
+<style>
+  /*
+   * Seitenspezifisches Layout für die Startseite.
+   * Alle Werte kommen aus tokens.css.
+   */
+
+  .section {
+    padding-block: var(--space-2xl);
+  }
+
+  .section__lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .section__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .section--cta {
+    background-color: var(--color-surface);
+    text-align: center;
+  }
+
+  /* Leistungen, dreispaltiges Grid ab 48em (--bp-md). */
+  .services {
+    display: grid;
+    gap: var(--space-lg);
+    margin-block-start: var(--space-lg);
+  }
+
+  @media (min-width: 48em) {
+    .services {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+/*
+ * Impressum
+ *
+ * Pflicht-Seite nach § 5 TMG. Inhaltlich absichtlich leer, weil die
+ * Verantwortung für Richtigkeit und Vollständigkeit beim Anbieter
+ * liegt. Der Platzhalter-Text dokumentiert, welche Angaben erwartet
+ * werden und warum hier kein Default-Text steht.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+---
+
+<BaseLayout
+  title="Impressum, [KUNDE: Markenname]"
+  description="Impressum und Anbieterkennzeichnung nach § 5 TMG."
+>
+  <section class="section" aria-labelledby="impressum-heading">
+    <Container size="narrow">
+      <Heading level={1} id="impressum-heading">Impressum</Heading>
+      <p>
+        [KUNDE: Impressum-Inhalt hier einfügen. Pflichtangaben nach § 5 TMG (Name bzw. Firma,
+        Anschrift, Kontakt, vertretungsberechtigte Person, ggf. Handelsregister und Umsatzsteuer-ID)
+        bitte vom Anbieter liefern. Diese Seite ist bewusst nicht vorausgefüllt, weil die
+        Verantwortung für Richtigkeit und Vollständigkeit beim Anbieter liegt.]
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-2xl);
+  }
+</style>

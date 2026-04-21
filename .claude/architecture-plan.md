@@ -69,9 +69,10 @@ Grund: Unausgefüllte Platzhalter bleiben sichtbar und lassen sich nicht versehe
 Jedes auf Basis dieses Templates gebaute Projekt enthält im Footer den Vermerk:
 
 ```html
-Website erstellt und designed von
-<a href="https://studiojessicaschmidt.de">Studio Jessica Schmidt</a>
+Design und Entwicklung: <a href="https://studiojessicaschmidt.de">studio jessica schmidt</a>
 ```
+
+Die Marke wird durchgängig in Minuskeln geschrieben, auch im Link-Text.
 
 ## Geplante Repo-Struktur
 

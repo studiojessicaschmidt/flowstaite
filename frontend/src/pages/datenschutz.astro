@@ -1,0 +1,34 @@
+---
+/*
+ * Datenschutzerklärung
+ *
+ * Pflicht-Seite nach DSGVO. Inhaltlich absichtlich leer, weil der
+ * Text auf die tatsächlich eingesetzten Dienste dieser Website
+ * zugeschnitten sein muss (Hoster, Fonts, Analyse, Cookies,
+ * Formulare, CDN). Der Platzhalter-Text macht das deutlich.
+ */
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/ui/Container.astro";
+import Heading from "../components/ui/Heading.astro";
+---
+
+<BaseLayout title="Datenschutz, [KUNDE: Markenname]" description="Datenschutzerklärung nach DSGVO.">
+  <section class="section" aria-labelledby="datenschutz-heading">
+    <Container size="narrow">
+      <Heading level={1} id="datenschutz-heading">Datenschutzerklärung</Heading>
+      <p>
+        [KUNDE: Datenschutzerklärung hier einfügen. Eine DSGVO-konforme Erklärung muss auf die
+        tatsächlich eingesetzten Dienste, Analyse-Tools, Cookies, Hoster und Formulare dieser
+        Website zugeschnitten sein und sollte von einer Fachperson erstellt oder geprüft werden.
+        Diese Seite ist bewusst nicht vorausgefüllt.]
+      </p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    padding-block: var(--space-2xl);
+  }
+</style>
