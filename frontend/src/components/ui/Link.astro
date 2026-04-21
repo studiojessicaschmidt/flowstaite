@@ -50,10 +50,16 @@ const externalAttrs = isExternal ? { target: "_blank", rel: "noopener noreferrer
    * Kein eigenes Styling, damit Fließtext-Links konsistent bleiben.
    */
 
+  /*
+   * Standalone-Variante: eigenständig prominenter Link, z. B. neben
+   * einem Button oder im Footer. Bekommt Touch-Target, Focus-Ring und
+   * Active-State, weil er wie ein Button angefasst wird.
+   */
   .link--standalone {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2xs);
+    min-height: var(--touch-target-min);
     font-weight: var(--weight-medium);
     color: var(--color-text);
     text-decoration: underline;
@@ -64,5 +70,20 @@ const externalAttrs = isExternal ? { target: "_blank", rel: "noopener noreferrer
 
   .link--standalone:hover {
     text-decoration-thickness: 2px;
+  }
+
+  .link--standalone:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /*
+   * Active-Rückmeldung über dickeren Unterstrich. Steigt vom 1px
+   * Default über 2px (hover) auf 3px (active), bleibt zurückhaltend
+   * und motion-arm.
+   */
+  .link--standalone:active {
+    text-decoration-thickness: 3px;
   }
 </style>

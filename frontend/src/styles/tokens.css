@@ -39,6 +39,13 @@
   /* Fokus-Ring, deutlich sichtbar auf hellem Hintergrund */
   --color-focus: #0057ff;
 
+  /*
+   * Generisches Overlay für Pressed-States, funktioniert über alle
+   * Varianten (primary, secondary, ghost), ohne pro Variante eine
+   * eigene Active-Farbe definieren zu müssen.
+   */
+  --color-overlay-pressed: rgba(0, 0, 0, 0.08);
+
   /* System-States, neutrale Defaults für Formulare und Hinweise */
   --color-success: #1f7a4d;
   --color-warning: #8a6200;
@@ -108,17 +115,35 @@
 
   /* ------------------------------------------------------------------
    * Layout
+   *
    * Breakpoints stehen als Kommentar, da CSS Custom Properties nicht
-   * in @media-Queries auswertbar sind. Wert-Gleichheit über Kommentare
-   * sicherstellen:
-   *   --bp-sm: 40em   (640px)
-   *   --bp-md: 48em   (768px)
-   *   --bp-lg: 64em  (1024px)
-   *   --bp-xl: 80em  (1280px)
+   * in @media-Queries auswertbar sind. Werte orientieren sich am
+   * Senior-UI-Skill (Mobile 480, Tablet 768, Desktop 1200, Desktop
+   * Large 1440). Aktiv genutzt wird im Template bisher nur --bp-md.
+   * Die übrigen Werte stehen als Konvention bereit, damit Kunden-
+   * projekte konsistent bleiben.
+   *
+   *   --bp-sm: 30em   (480px, Mobile Large)
+   *   --bp-md: 48em   (768px, Tablet, aktiv)
+   *   --bp-lg: 75em  (1200px, Desktop)
+   *   --bp-xl: 90em  (1440px, Desktop Large)
+   *
+   * Container-Breiten stehen als Token, damit Komponenten und Over-
+   * rides an einer Stelle gepflegt werden. `prose` ist auf ca. 65
+   * Zeichen pro Zeile ausgelegt (Lesbarkeits-Optimum für Fließtext).
    * ------------------------------------------------------------------ */
 
-  --container-max: 72rem;
+  --container-narrow: 40rem;
+  --container-default: 72rem;
+  --container-wide: 90rem;
+  --container-prose: 65ch;
   --container-pad-inline: clamp(1rem, 4vw, 2rem);
+
+  /*
+   * Touch-Target-Minimum für interaktive Elemente auf Mobile.
+   * WCAG 2.5.5 (Level AAA, faktischer Standard laut Apple und Google).
+   */
+  --touch-target-min: 2.75rem;
 
   /* ------------------------------------------------------------------
    * Schatten, dezent

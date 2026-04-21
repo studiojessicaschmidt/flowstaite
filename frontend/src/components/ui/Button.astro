@@ -22,6 +22,12 @@ interface Props extends HTMLAttributes<"button"> {
   variant?: ButtonVariant;
   /** Größe. Default "md". */
   size?: ButtonSize;
+  /**
+   * Ladezustand. Wenn true: Button bleibt sichtbar, wird deaktiviert,
+   * bekommt aria-busy und zeigt einen Spinner neben dem Slot-Inhalt.
+   * Default false.
+   */
+  loading?: boolean;
 }
 
 const {
@@ -30,17 +36,28 @@ const {
   // Explizites Default: verhindert, dass der Button in einem Form
   // ungewollt als Submit-Button interpretiert wird.
   type = "button",
+  loading = false,
+  disabled,
   class: extraClass,
   ...rest
 } = Astro.props;
+
+// Während des Ladens ist der Button nicht klickbar, auch wenn
+// disabled nicht explizit gesetzt wurde. Verhindert Doppel-Submits.
+const isDisabled = disabled || loading;
 ---
 
 <button
   type={type}
   class:list={["button", `button--${variant}`, `button--${size}`, extraClass]}
+  disabled={isDisabled}
+  aria-busy={loading || undefined}
   {...rest}
 >
-  <slot />
+  <span class="button__content">
+    <slot />
+  </span>
+  {loading && <span class="button__spinner" aria-hidden="true" />}
 </button>
 
 <style>
@@ -49,6 +66,7 @@ const {
     align-items: center;
     justify-content: center;
     gap: var(--space-2xs);
+    min-height: var(--touch-target-min);
     font-family: var(--font-sans);
     font-weight: var(--weight-medium);
     line-height: var(--leading-snug);
@@ -63,9 +81,27 @@ const {
       border-color var(--duration-fast) var(--ease-standard);
   }
 
+  /*
+   * Expliziter Focus-Ring, überschreibt das globale :focus-visible
+   * aus global.css mit Button-spezifischem Offset.
+   */
+  .button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
   .button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /*
+   * Active-Overlay als linear-gradient über den Button-Hintergrund.
+   * Funktioniert variant-übergreifend, ohne pro Variante eine eigene
+   * Active-Farbe zu definieren. Nicht aktiv bei disabled.
+   */
+  .button:not(:disabled):active {
+    background-image: linear-gradient(var(--color-overlay-pressed), var(--color-overlay-pressed));
   }
 
   /* Größen */
@@ -114,5 +150,35 @@ const {
 
   .button--ghost:hover:not(:disabled) {
     background-color: var(--color-surface);
+  }
+
+  /* ------------------------------------------------------------------
+   * Loading-State
+   *
+   * Der Slot-Inhalt wird optisch zurückgenommen, der Spinner übernimmt
+   * die visuelle Hauptrolle. Der Button bleibt in seiner Größe, damit
+   * das Layout nicht springt. Für prefers-reduced-motion friert der
+   * Spinner über das globale Reset ein, aria-busy signalisiert den
+   * Zustand weiterhin an Screenreader.
+   * ------------------------------------------------------------------ */
+
+  .button[aria-busy="true"] .button__content {
+    opacity: 0.5;
+  }
+
+  .button__spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: button-spin 0.8s linear infinite;
+  }
+
+  @keyframes button-spin {
+    to {
+      transform: rotate(1turn);
+    }
   }
 </style>

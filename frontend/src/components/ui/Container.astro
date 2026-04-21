@@ -12,13 +12,20 @@ import type { HTMLAttributes } from "astro/types";
 /** Semantische Root-Tags, die als Container sinnvoll sind. */
 type ContainerTag = "div" | "section" | "article" | "main" | "header" | "footer" | "nav" | "aside";
 
-/** Max-Width-Variante. "full" deaktiviert die Begrenzung. */
-type ContainerSize = "narrow" | "default" | "wide" | "full";
+/**
+ * Max-Width-Variante.
+ * - narrow:  schmaler Content, z. B. CTA-Sections
+ * - default: Standard-Seitenbreite
+ * - wide:    Dashboard-artige Seiten, Galerien
+ * - prose:   Fließtext mit optimaler Zeilenlänge (ca. 65 Zeichen)
+ * - full:    keine Begrenzung (randlos, ohne horizontales Padding)
+ */
+type ContainerSize = "narrow" | "default" | "wide" | "prose" | "full";
 
 interface Props extends HTMLAttributes<"div"> {
   /** HTML-Tag des Root-Elements. Default "div". */
   as?: ContainerTag;
-  /** Max-Breite. Default "default" nutzt --container-max aus den Tokens. */
+  /** Max-Breite. Default "default" nutzt --container-default aus den Tokens. */
   size?: ContainerSize;
 }
 
@@ -37,17 +44,24 @@ const { as: Tag = "div", size = "default", class: extraClass, ...rest } = Astro.
   }
 
   .container--narrow {
-    /* 60 % der Default-Breite, für Fließtext-Seiten wie Impressum. */
-    max-width: calc(var(--container-max) * 0.6);
+    max-width: var(--container-narrow);
   }
 
   .container--default {
-    max-width: var(--container-max);
+    max-width: var(--container-default);
   }
 
   .container--wide {
-    /* 20 % breiter als Default, für Dashboard-artige Seiten. */
-    max-width: calc(var(--container-max) * 1.2);
+    max-width: var(--container-wide);
+  }
+
+  /*
+   * Fließtext-Container, ca. 65 Zeichen pro Zeile. Für Seiten wie
+   * Impressum, Datenschutz, Artikel-Inhalte, bei denen Lesbarkeit
+   * über maximale Breite zählt.
+   */
+  .container--prose {
+    max-width: var(--container-prose);
   }
 
   .container--full {

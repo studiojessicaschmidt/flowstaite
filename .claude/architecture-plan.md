@@ -74,6 +74,14 @@ Design und Entwicklung: <a href="https://studiojessicaschmidt.de">studio jessica
 
 Die Marke wird durchgängig in Minuskeln geschrieben, auch im Link-Text.
 
+### 7. Senior-UI-Maßstab und Component-Reife
+
+UI-Komponenten folgen dem globalen `senior-ui`-Skill als Qualitätsreferenz. Jede UI-Komponente muss die Pflicht-States Default, Hover, Focus, Active, Disabled erfüllen (Loading wo sinnvoll). Touch-Targets auf Mobile sind mindestens 44 mal 44 Pixel. Docs in `.claude/docs/` sind die Template-spezifische Übersetzung, nicht die Duplikation des Skills.
+
+### 8. Handoff als Export-Paket, nicht als Studio-Repo
+
+Kundenprojekte erhalten beim Handoff ein sauberes Export-Verzeichnis ohne Studio-interne Dateien (keine `.claude/`, keine CLAUDE.md, keine Setup- oder Handoff-Templates). Details in `.claude/docs/handoff-strategy.md`, umgesetzt durch den `prepare-handoff`-Skill.
+
 ## Geplante Repo-Struktur
 
 ```
@@ -84,15 +92,17 @@ studio-jessica-template/
 ├── HANDOFF_TEMPLATE.md          # Kick-off-System, Einheit 8
 ├── .claude/
 │   ├── architecture-plan.md     # diese Datei
-│   ├── tasks.md                 # Fortschritt der 10 Einheiten
-│   ├── docs/                    # Referenz-Dokumentation, Einheit 6
-│   │   ├── design-tokens.md
-│   │   ├── component-patterns.md
-│   │   ├── accessibility.md
-│   │   ├── seo-meta.md
-│   │   ├── sanity-integration.md
-│   │   ├── deployment.md
-│   │   └── handoff-checklist.md
+│   ├── tasks.md                 # Fortschritt der Einheiten
+│   ├── docs/                    # Referenz-Dokumentation, Einheit 6 (aufgeteilt in 6a und 6b)
+│   │   ├── design-tokens.md         # 6a
+│   │   ├── component-patterns.md    # 6a
+│   │   ├── accessibility.md         # 6a
+│   │   ├── micro-interactions.md    # 6a, neu nach Review
+│   │   ├── seo-meta.md              # 6b
+│   │   ├── deployment.md            # 6b
+│   │   ├── sanity-integration.md    # 6b, Stub, voll in Einheit 9
+│   │   ├── handoff-strategy.md      # 6b, neu nach Review
+│   │   └── handoff-checklist.md     # 6b
 │   ├── skills/                  # Projekt-spezifische Skills, Einheit 7
 │   │   ├── create-component/SKILL.md
 │   │   ├── create-page/SKILL.md
@@ -126,18 +136,26 @@ studio-jessica-template/
 └── .vscode/settings.json
 ```
 
-## Die zehn Einheiten
+## Die Einheiten (Stand 2026-04-21)
 
-1. **Projekt-Grundgerüst:** Astro-Setup, Ordnerstruktur, Prettier, .gitignore, tsconfig strict, CLAUDE.md und architecture-plan.md. (aktuelle Einheit)
-2. **Token-System und Styles:** tokens.css mit neutralen Defaults, reset.css, global.css.
-3. **UI-Basiskomponenten:** Button, Link, Container, Heading, Tag, ImagePlaceholder.
-4. **Layout-System:** BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead.
-5. **Pflicht-Seiten:** index, 404, impressum, datenschutz mit Platzhaltern.
-6. **Dokumentation und Referenz-Dateien** in `.claude/docs/`.
-7. **Projekt-spezifische Skills** in `.claude/skills/`.
-8. **Kick-off-System:** PROJECT_SETUP.md, HANDOFF_TEMPLATE.md, briefing-Vorlagen.
-9. **Sanity-Modul vorbereiten:** Anleitung und Schemas in `add-sanity/SKILL.md`.
+Nach Einheit 5 wurden zwei Zwischen-Einheiten (3.5 und 6.5) eingefügt, Einheit 6 in zwei Sessions (6a und 6b) aufgeteilt. Grund: Senior-UI-konforme Component-Reife und vorgeschaltete Evaluierung globaler Skills, bevor projekt-spezifische Skills in Einheit 7 gebaut werden.
+
+1. **Projekt-Grundgerüst.** Astro-Setup, Ordnerstruktur, Prettier, .gitignore, tsconfig strict, CLAUDE.md, architecture-plan.md.
+2. **Token-System und Styles.** tokens.css mit neutralen Defaults, reset.css, global.css.
+3. **UI-Basiskomponenten.** Button, Link, Container, Heading, Tag, ImagePlaceholder.
+3.5. **Component-Reife.** Button und Link nach Senior-UI-Maßstab erweitern: expliziter Focus-State, Active-State, Loading-State, `min-height` für 44px Touch-Target. Breakpoint-Kommentare in tokens.css auf Senior-UI-Werte (480/768/1200/1440) anheben, aktive Nutzung bleibt `--bp-md`.
+4. **Layout-System.** BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead.
+5. **Pflicht-Seiten.** index, 404, impressum, datenschutz, agb, barrierefreiheit mit Platzhaltern.
+6. **Dokumentation und Referenz-Dateien** in `.claude/docs/`, zwei Sessions:
+   - **6a:** design-tokens.md, component-patterns.md, accessibility.md, micro-interactions.md.
+   - **6b:** seo-meta.md, deployment.md, sanity-integration.md (Stub), handoff-strategy.md, handoff-checklist.md.
+6.5. **Skill-Evaluierung.** Globale Skills (senior-ui, web-accessibility, geo-*) daraufhin prüfen, ob sie den projekt-spezifischen Skills in Einheit 7 als Fundament ausreichen. Lücken benennen. Entscheidung pro Projekt-Skill: eigener Skill oder Orchestrator über globale Skills.
+7. **Projekt-spezifische Skills** in `.claude/skills/`. Mehrere sind Orchestratoren über globale Skills (accessibility-check, seo-check). Eigenständig: create-component, create-page, performance-check (nur Vorschlag-Modus), prepare-handoff, add-sanity.
+8. **Kick-off-System.** PROJECT_SETUP.md, HANDOFF_TEMPLATE.md, briefing-Vorlagen.
+9. **Sanity-Modul vorbereiten.** Anleitung und Schemas in `add-sanity/SKILL.md`.
 10. **README und finaler Qualitätscheck.**
+11. **Skill- und Workflow-Aufpolierung.** Alle im Template-Prozess genutzten Skills (global und projekt-spezifisch) durchgehen und verfeinern. Kompletten Workflow End-to-End prüfen, vom Kick-off bis zum Handoff. Offene Punkte aus früheren Einheiten (z. B. Accessibility-Tiefen, Senior-UI-Verfeinerung, Disabled-Token-Paar statt Opacity) hier bündeln.
+12. **Figma-Component-Library.** Standard-Library in Figma aufbauen, basierend auf den Template-Tokens und den Code-Komponenten aus `frontend/src/components/ui/`. Ziel: Parität zwischen Code und Figma, ein gemeinsamer Baukasten für Design und Implementation.
 
 ## Arbeitsweise in Sessions
 
