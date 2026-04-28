@@ -11,7 +11,7 @@ Nach Einheit 5 wurden zwei Zwischen-Einheiten eingefügt (3.5 und 6.5), Einheit 
 - [x] **Einheit 3.5: Component-Reife** (Button und Link um Focus, Active, Loading, Touch-Target 44px ergänzen, Breakpoint-Kommentare in tokens.css auf Senior-UI-Werte anheben, Container-Token-System)
 - [x] **Einheit 4: Layout-System** (BaseLayout, Header, Footer mit Studio-Credit, SkipLink, SeoHead)
 - [x] **Einheit 5: Pflicht-Seiten** (index, 404, impressum, datenschutz, agb, barrierefreiheit mit sichtbaren Platzhaltern)
-- [ ] **Einheit 6a: Dokumentation UI-Fundament** (design-tokens.md, component-patterns.md, accessibility.md, micro-interactions.md)
+- [x] **Einheit 6a: Dokumentation UI-Fundament** (design-tokens.md, component-patterns.md, accessibility.md, micro-interactions.md)
 - [ ] **Einheit 6b: Dokumentation Projekt-Docs** (seo-meta.md, deployment.md, sanity-integration.md als Stub, handoff-strategy.md, handoff-checklist.md)
 - [ ] **Einheit 6.5: Skill-Evaluierung** (globale Skills prüfen, Spec pro Projekt-Skill festlegen)
 - [ ] **Einheit 7: Projekt-spezifische Skills** in `.claude/skills/`
@@ -257,3 +257,67 @@ Nach Einheit 5 wurden zwei Zwischen-Einheiten eingefügt (3.5 und 6.5), Einheit 
 - Einheit 11, Accessibility-Aufpolierung: Opacity-basierte Disabled-Visualisierung durch Token-Paar (`--color-disabled-bg`, `--color-disabled-fg`) ersetzen, Kontrast-sicher über alle Varianten.
 
 **Nächste Einheit:** Einheit 6a, UI-Fundament-Docs.
+
+### 2026-04-27, Einheit 6a abgeschlossen
+
+**Was entstanden ist:**
+
+- `.claude/docs/design-tokens.md`: Token-Übersicht mit den Kategorien Color, Spacing (9-Wert-Skala mit zusätzlicher 12px-Stufe), Typography, Container, Motion, Layout, Touch-Target. Neue Sektionen `Regeln` (5 Bullets), `Override-Leitfaden` (Tabelle Kunde-Anpassung → `project-overrides.css`) und `Querverweise`. Spacing-Abschnitt referenziert Material 3 und IBM Carbon.
+- `.claude/docs/component-patterns.md`: Pro UI- und Layout-Komponente Zweck, Props, States, A11y-Hinweise, Quellcode-Verweis. Astro-Code-Beispiele pro Komponente (Button, Link, Container, Heading, Tag, ImagePlaceholder, BaseLayout, Header). Section-Konvention dokumentiert. `Querverweise` ergänzt.
+- `.claude/docs/accessibility.md`: WCAG 2.1 AA als Mindestmaß. BFSG-Hinweis prominent. Neue Sektion `Erklärung zur Barrierefreiheit, Pflichtinhalte` (Stand der Konformität, Kontakt, Feedback-Mechanismus, Durchsetzungsverfahren, Aufsichtsbehörde). Tabelle `Vom Template erzwungen` mit 16 Punkten inklusive WCAG-Referenzen (Focus-Ring, Touch-Target 44px, SkipLink, Landmarks, lang, Page-Title, konsistente Navigation, Kontrast 4.5:1 und 3:1, Resize 200%, Reflow 320px, Text Spacing, prefers-reduced-motion, aria-busy, externe Links, Bild-Platzhalter). Liste `Pro Projekt zu prüfen` gruppiert nach Inhalte/Medien, Sprache/Texte, Farbe/Kontrast, Formulare/Interaktion, Tastatur. Neue Sektion `Audit-Pflicht im Workflow` als Trigger für den `accessibility-check`-Skill nach jeder Figma-zu-Code-Übertragung. Hinweis zur Limitation automatischer Tools (30 bis 40 Prozent Erkennungsrate).
+- `.claude/docs/micro-interactions.md`: neu angelegt. Motion-Token-Tabelle. Neue Sektion `Hover-Feedback-Konvention` mit Regeln (dezent, schnell, max. zwei Eigenschaften, kein Scale, kein Translate-Y) und Tabelle pro Element-Typ (Button, Link, Card, Icon-Button) orientiert an Linear, Stripe, Vercel, Apple. `Im Template aktiv genutzt` (Hover-Transitions, Pressed-Overlay, Underline-Eskalation, Button-Spinner, Mobile-Nav-Toggle, Focus-Ring). `Bewusst nicht im Default` (Page-Transitions, Scroll-Reveals, Parallax, Selbstzweck-Animationen). Sektion `prefers-reduced-motion` mit Konsequenzen pro Komponente.
+
+**Technische Details:**
+
+- Alle vier Dateien folgen dem Doku-Stil: dicht, konkret, mit Code-Verweisen statt Wiederholungen aus dem Senior-UI-Skill.
+- Keine Gedankenstriche, Wort „authentisch" nicht genutzt, Markenschreibweise studio jessica schmidt durchgehend in Minuskeln (in allen Studio-Verweisen).
+- Quellen für rechtliche Robustheit: bfsg-gesetz.de, bundesfachstelle-barrierefreiheit.de, WebAIM, W3C Quick Reference.
+
+**Offene Fragen aus Plan-Anpassung vom 2026-04-21, in Einheit 6a geklärt:**
+
+- `design-tokens.md`: 9-Wert-Skala mit 12px bleibt, Begründung über Material 3 und IBM Carbon dokumentiert. Senior-UI-Skill-Anpassung gesammelt für Einheit 6.5.
+- `component-patterns.md`: Component-Reife-Lücken pro Komponente inline dokumentiert (State-Tabellen), nicht als separater Backlog. Code-Beispiele eingebaut.
+- `accessibility.md`: Umfang erweitert um BFSG-Pflichtinhalte, vollständige WCAG-2.1-AA-Abdeckung in zwei Spalten (Template-erzwungen vs. pro Projekt zu prüfen) plus Audit-Trigger-Sektion.
+- `micro-interactions.md`: Default-Motion-Regeln als Tokens-Tabelle plus Hover-Feedback-Konvention pro Element-Typ.
+
+**Auswirkungen auf spätere Einheiten:**
+
+- **Einheit 6b:** `handoff-checklist.md` übernimmt die Per-Projekt-Liste aus `accessibility.md` als Pre-Go-live-Checkpunkte plus BFSG-Abklärung.
+- **Einheit 6.5:** Gesammelte Senior-UI-Skill-Updates (Spacing, Active-Overlay, Breakpoints, Per-Projekt-A11y-Punkte) sind weiter unten in dieser Datei vermerkt.
+- **Einheit 7:** `accessibility-check`-Skill bekommt die Per-Projekt-Liste als Prüfschema, Hover-Feedback-Konvention fließt in `create-component`-Skill ein. Audit-Trigger nach Figma-zu-Code-Übertragung ist verankert.
+- **Einheit 11:** Opacity-Disabled-Aufpolierung bleibt offen, kein neuer Punkt.
+- **Einheit 12:** Figma-Library übernimmt Hover-, Focus- und Active-Spezifikationen aus `micro-interactions.md` und `component-patterns.md`, damit Design und Code denselben Baukasten nutzen.
+
+**Zu prüfen:**
+
+- Alle vier Dateien öffnen und sicherstellen, dass die Code-Verweise auf bestehende Dateien zeigen.
+- BFSG-Pflichtinhalte in `accessibility.md` als Vorlage für die Befüllung der `barrierefreiheit.astro` pro Kundenprojekt nutzen.
+- Hover-Feedback-Konvention in `micro-interactions.md` als Referenz für neue Komponenten in Einheit 7 verwenden.
+
+**Nächste Einheit:** Einheit 6b, Dokumentation Projekt-Docs (seo-meta.md, deployment.md, sanity-integration.md als Stub, handoff-strategy.md, handoff-checklist.md).
+
+### Sammelpunkte für Einheit 6.5, Senior-UI-Skill-Verbesserungen
+
+Liste der Punkte, die beim Aufbessern des globalen `senior-ui`-Skills berücksichtigt werden sollen. Wird in Einheit 6.5 abgearbeitet, weitere Punkte können bei Bedarf hier ergänzt werden.
+
+**Spacing:**
+
+- Spacing-Skala auf 9 Werte mit zusätzlicher 12px-Stufe (`--space-xs`) erweitern. Begründung: Material 3 und IBM Carbon nutzen feinere Skalen, die strikte 6-Werte-Regel ist didaktisch sinnvoll, in der Praxis aber zu eng.
+
+**Motion und Active-States:**
+
+- Active-State per Overlay (`linear-gradient` mit Pressed-Overlay-Token) statt `scale(0.98)` empfehlen. Begründung: Overlay-Variante ist kompatibel mit `prefers-reduced-motion` und funktioniert variant-übergreifend ohne pro-Variante-Farbe.
+
+**Breakpoints:**
+
+- Pragmatischen Ansatz dokumentieren: vier Breakpoints definieren (480, 768, 1200, 1440), aber nur `--bp-md` aktiv nutzen, solange das Layout das erlaubt. Senior-UI-Skill kann das als Empfehlung statt strikter Regel führen.
+
+**Accessibility, Erweiterung der `references/accessibility.md`:**
+
+Punkte, die im Template-Kontext pro Kundenprojekt geprüft werden müssen und im Senior-UI-Skill als Projekt-Checkliste sinnvoll wären:
+
+- Alt-Texte für jedes Bild.
+- Kontrast-Check, sobald Kunde eigene Akzentfarbe setzt.
+- Untertitel für Videos.
+- Sinnvolle Heading-Hierarchie pro Seite (genau ein h1, lückenlose Stufen).
+- Formulare: Labels, Fehlermeldungen, ARIA-Attribute wo nötig.
