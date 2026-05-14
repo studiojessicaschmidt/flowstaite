@@ -1,149 +1,596 @@
 ---
-/*
- * Startseite
- *
- * Template-Gerüst für die Home-Page jedes Kundenprojekts. Enthält
- * absichtlich keine echten Inhalte, sondern sichtbare [KUNDE: ...]-
- * Platzhalter. Die Section-Reihenfolge (Hero, Über, Leistungen,
- * CTA, Kontakt-Teaser) gibt einen typischen Dienstleistungs-Funnel
- * vor und kann pro Projekt umgebaut werden.
- *
- * Sections sind semantisch als <section aria-labelledby="...">
- * ausgezeichnet, damit Screenreader eine klare Struktur bekommen.
- */
-
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/ui/Container.astro";
 import Heading from "../components/ui/Heading.astro";
 import Button from "../components/ui/Button.astro";
-import Link from "../components/ui/Link.astro";
-import ImagePlaceholder from "../components/ui/ImagePlaceholder.astro";
 ---
 
 <BaseLayout
-  title="[KUNDE: Seiten-Titel der Startseite]"
-  description="[KUNDE: Kurze Meta-Description der Startseite, ein bis zwei Sätze.]"
+  title="flowstaite – Dein KI-Kollege"
+  description="flowstaite ist dein KI-nativer Kollege, der zusieht, lernt und eigenständig Routine-Aufgaben erledigt. Trag deine Mailadresse ein und sei dabei."
 >
-  <section class="section section--hero" aria-labelledby="hero-heading">
-    <Container size="default">
-      <Heading level={1} id="hero-heading"> [KUNDE: Haupt-Headline für die Startseite] </Heading>
-      <p class="section__lead">
-        [KUNDE: Unterzeile, ein bis zwei Sätze, die das Kernangebot der Marke zusammenfassen.]
+  <!-- Hero: Vollbild-Bild mit Overlay und Claim -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <img
+      class="hero__img"
+      src="/images/hero.png"
+      alt="Zwei Personen arbeiten gemeinsam am Laptop"
+      width="1600"
+      height="1067"
+    />
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content">
+      <h1 class="hero__heading" id="hero-heading">
+        Dein KI-Kollege, den du<br />nicht einstellen musst.
+      </h1>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <svg class="hero__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <polyline points="19 12 12 19 5 12" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Was ist flowstaite? -->
+  <section class="section" aria-labelledby="what-heading">
+    <Container size="narrow">
+      <Heading level={2} id="what-heading">
+        <span>Was ist flowst</span><span class="accent">ai</span><span>te?</span>
+      </Heading>
+      <p class="section__text">
+        flowstaite ist ein digitaler KI-Praktikant, der zusieht, lernt, Muster
+        erkennt und dann eigenständig Routine-Aufgaben erledigt. Eine
+        Agent-First-Software, die euch dort hilft, wo es am meisten nützt.
       </p>
-      <p class="section__actions">
-        <Button variant="primary" size="lg">[KUNDE: Primärer CTA-Text]</Button>
-        <Link href="/leistungen" variant="standalone"> [KUNDE: Sekundärer Link-Text] </Link>
-      </p>
-      <ImagePlaceholder ratio="16 / 9" label="[KUNDE: Hero-Bild einsetzen]" />
     </Container>
   </section>
 
-  <section class="section" aria-labelledby="about-heading">
-    <Container size="default">
-      <Heading level={2} id="about-heading"> [KUNDE: Überschrift Über-Section] </Heading>
-      <p>
-        [KUNDE: Kurzer Vorstellungstext, drei bis fünf Sätze, in denen die Marke, ihre Haltung und
-        ihr Fokus umrissen werden.]
-      </p>
-      <ImagePlaceholder ratio="4 / 3" label="[KUNDE: Porträt oder Arbeitsfoto]" />
-    </Container>
-  </section>
-
-  <section class="section" aria-labelledby="services-heading">
-    <Container size="default">
-      <Heading level={2} id="services-heading"> [KUNDE: Überschrift Leistungen-Section] </Heading>
-      <p>[KUNDE: Kurzer einleitender Satz zur Leistungs-Übersicht.]</p>
-
-      <div class="services">
-        <article class="service">
-          <Heading level={3}>[KUNDE: Leistung 1, Titel]</Heading>
-          <p>[KUNDE: Leistung 1, Beschreibung in zwei bis drei Sätzen.]</p>
-          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
-        </article>
-
-        <article class="service">
-          <Heading level={3}>[KUNDE: Leistung 2, Titel]</Heading>
-          <p>[KUNDE: Leistung 2, Beschreibung in zwei bis drei Sätzen.]</p>
-          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
-        </article>
-
-        <article class="service">
-          <Heading level={3}>[KUNDE: Leistung 3, Titel]</Heading>
-          <p>[KUNDE: Leistung 3, Beschreibung in zwei bis drei Sätzen.]</p>
-          <Link href="/leistungen" variant="standalone">Mehr erfahren</Link>
-        </article>
+  <!-- Pitch Deck Embed -->
+  <section class="section section--surface" aria-labelledby="pitch-heading">
+    <Container size="narrow">
+      <div class="embed-wrapper">
+        <iframe
+          class="embed-wrapper__iframe"
+          src="https://embed.figma.com/deck/gLnpF0bnQ0XukvnKrY4Ulm/Startup-School-Pitch-v5?node-id=1-45&embed-host=share"
+          allowfullscreen
+          loading="lazy"
+          title="flowstaite Pitch Deck"
+        ></iframe>
       </div>
     </Container>
   </section>
 
-  <section class="section section--cta" aria-labelledby="cta-heading">
+  <!-- Wie funktioniert flowstaite? -->
+  <section class="section section--surface" aria-labelledby="how-heading">
     <Container size="narrow">
-      <Heading level={2} id="cta-heading">
-        [KUNDE: CTA-Überschrift, z.B. Lust auf ein gemeinsames Projekt?]
+      <Heading level={2} id="how-heading">
+        <span>Wie funktioniert flowst</span><span class="accent">ai</span><span>te?</span>
       </Heading>
-      <p>[KUNDE: Kurzer Text, der zum nächsten Schritt einlädt, ein bis zwei Sätze.]</p>
-      <p class="section__actions">
-        <Button variant="primary" size="lg">[KUNDE: CTA-Button-Text]</Button>
+      <ol class="steps">
+        <li class="steps__item">
+          <span class="steps__number">1</span>
+          <div class="steps__body">
+            <h3 class="steps__title">Lernen</h3>
+            <p class="steps__text">
+              flowstaite beobachtet euer Onboarding, eure Workflows,
+              Lieferant:innen und Vorgaben. Es versteht, wie euer Betrieb tickt.
+            </p>
+          </div>
+        </li>
+        <li class="steps__item">
+          <span class="steps__number">2</span>
+          <div class="steps__body">
+            <h3 class="steps__title">Vorschlagen</h3>
+            <p class="steps__text">
+              Ihr reviewt jeden Vorschlag. Der Agent lernt aus euren Korrekturen
+              und wird mit jeder Runde besser.
+            </p>
+          </div>
+        </li>
+        <li class="steps__item">
+          <span class="steps__number">3</span>
+          <div class="steps__body">
+            <h3 class="steps__title">Übernehmen</h3>
+            <p class="steps__text">
+              Ihr bestätigt nur noch den Output. Der Agent arbeitet
+              selbstständig, ihr behaltet die Kontrolle.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </Container>
+  </section>
+
+  <!-- Gemeinsam gestalten -->
+  <section class="section" aria-labelledby="together-heading">
+    <Container size="narrow">
+      <Heading level={2} id="together-heading">Gemeinsam gestalten,<br />was als Nächstes kommt.</Heading>
+      <p class="section__text">
+        flowstaite befindet sich im Aufbau. Wenn du dabei sein möchtest, als
+        Mitentwickler:in oder einfach neugierig auf das, was entsteht, freuen
+        wir uns über deine Mailadresse.
       </p>
     </Container>
   </section>
 
-  <section class="section" aria-labelledby="contact-heading">
-    <Container size="narrow">
-      <Heading level={2} id="contact-heading"> [KUNDE: Überschrift Kontakt-Section] </Heading>
-      <p>
-        [KUNDE: Kurzer Text zur Kontaktaufnahme, z.B. bevorzugte Wege und übliche Reaktionszeit.]
-      </p>
-      <p>
-        <Link href="/kontakt" variant="standalone">Zur Kontaktseite</Link>
-      </p>
-    </Container>
-  </section>
+  <!-- Signup + Footer-Bereich: durchgehender Surface-Hintergrund -->
+  <div class="bottom-surface">
+    <section class="section" aria-labelledby="signup-heading">
+      <Container size="narrow">
+        <Heading level={2} id="signup-heading">Dabei sein</Heading>
+        <p class="section__text">
+          Interesse daran, gemeinsam zu entwickeln oder auf dem Laufenden zu
+          bleiben? Trag dich ein, wir melden uns, sobald es losgeht.
+        </p>
+
+        <form
+          class="signup-form"
+          id="signup-form"
+          method="POST"
+          action="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+          novalidate
+        >
+          <fieldset class="signup-form__interests">
+            <legend class="signup-form__legend">Was interessiert dich?</legend>
+            <div class="signup-form__pills">
+              <label class="signup-pill">
+                <input class="signup-pill__input" type="checkbox" name="interest" value="Auf dem Laufenden bleiben" />
+                <span class="signup-pill__label">Auf dem Laufenden bleiben</span>
+              </label>
+              <label class="signup-pill">
+                <input class="signup-pill__input" type="checkbox" name="interest" value="Mitgestalten" />
+                <span class="signup-pill__label">Mitgestalten</span>
+              </label>
+            </div>
+            <span class="signup-form__error" id="interest-error" aria-live="polite" hidden>
+              Bitte wähle mindestens eine Option.
+            </span>
+          </fieldset>
+
+          <fieldset class="signup-form__interests">
+            <legend class="signup-form__legend">Was beschreibt dich?</legend>
+            <div class="signup-form__pills">
+              <label class="signup-pill">
+                <input class="signup-pill__input" type="checkbox" name="rolle" value="Ich arbeite bei einem Unternehmen" />
+                <span class="signup-pill__label">Ich arbeite bei einem Unternehmen</span>
+              </label>
+              <label class="signup-pill">
+                <input class="signup-pill__input" type="checkbox" name="rolle" value="Ich führe ein Unternehmen" />
+                <span class="signup-pill__label">Ich führe ein Unternehmen</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="signup-form__name-row">
+            <div class="signup-form__field">
+              <label class="signup-form__label" for="firstname">Vorname</label>
+              <input
+                class="signup-form__input"
+                type="text"
+                id="firstname"
+                name="vorname"
+                autocomplete="given-name"
+                required
+                placeholder="Dein Vorname"
+              />
+            </div>
+            <div class="signup-form__field">
+              <label class="signup-form__label" for="lastname">Nachname</label>
+              <input
+                class="signup-form__input"
+                type="text"
+                id="lastname"
+                name="nachname"
+                autocomplete="family-name"
+                required
+                placeholder="Dein Nachname"
+              />
+            </div>
+          </div>
+
+          <div class="signup-form__row">
+            <div class="signup-form__field">
+              <label class="signup-form__label" for="email">Mailadresse</label>
+              <input
+                class="signup-form__input"
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+                placeholder="deine@mail.de"
+              />
+            </div>
+
+            <Button type="submit" variant="primary" size="md" id="signup-submit">
+              Eintragen
+            </Button>
+          </div>
+
+          <span class="signup-form__error" id="form-error" aria-live="polite" hidden>
+            Bitte fülle alle Felder aus.
+          </span>
+        </form>
+
+        <div class="signup-success" id="signup-success" hidden aria-live="polite" role="status">
+          <p class="signup-success__text">Danke, wir melden uns.</p>
+        </div>
+      </Container>
+    </section>
+  </div>
 </BaseLayout>
 
+<script>
+  const form = document.getElementById("signup-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("signup-submit") as HTMLButtonElement | null;
+  const successEl = document.getElementById("signup-success") as HTMLElement | null;
+  const formError = document.getElementById("form-error") as HTMLElement | null;
+  const interestError = document.getElementById("interest-error") as HTMLElement | null;
+
+  if (form && submitBtn && successEl && formError && interestError) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const interests = data.getAll("interest");
+      const email = (data.get("email") as string || "").trim();
+      const vorname = (data.get("vorname") as string || "").trim();
+      const nachname = (data.get("nachname") as string || "").trim();
+      const emailInput = form.querySelector<HTMLInputElement>("#email")!;
+
+      interestError.hidden = true;
+      formError.hidden = true;
+
+      if (interests.length === 0) {
+        interestError.hidden = false;
+        return;
+      }
+
+      if (!vorname || !nachname || !emailInput.validity.valid) {
+        formError.textContent = "Bitte fülle alle Felder aus.";
+        formError.hidden = false;
+        return;
+      }
+
+      submitBtn.setAttribute("aria-busy", "true");
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: data,
+        });
+
+        if (!response.ok) {
+          throw new Error("Form submission failed");
+        }
+
+        form.hidden = true;
+        successEl.hidden = false;
+      } catch {
+        formError.textContent =
+          "Da ist etwas schiefgegangen. Bitte versuche es gleich nochmal.";
+        formError.hidden = false;
+        submitBtn.removeAttribute("aria-busy");
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
+
 <style>
-  /*
-   * Seitenspezifisches Layout für die Startseite.
-   * Alle Werte kommen aus tokens.css.
-   */
-
-  .section {
-    padding-block: var(--space-2xl);
-  }
-
-  .section__lead {
-    font-size: var(--text-lg);
-    color: var(--color-text-muted);
-  }
-
-  .section__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    align-items: center;
-  }
-
-  .section--cta {
-    background-color: var(--color-surface);
-    text-align: center;
-  }
-
-  /* Leistungen, dreispaltiges Grid ab 48em (--bp-md). */
-  .services {
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
     display: grid;
+    align-items: end;
+  }
+
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+    max-width: var(--container-default);
+  }
+
+  .hero__heading {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-bold);
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-bg);
+    margin: 0;
+  }
+
+  /* Scroll-Pfeil */
+  .hero__scroll {
+    position: absolute;
+    right: var(--space-xl);
+    bottom: var(--space-2xl);
+    z-index: 1;
+    animation: hero-bounce 2s ease-in-out infinite;
+  }
+
+  .hero__arrow {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-bg);
+    opacity: 0.8;
+  }
+
+  @keyframes hero-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(0.5rem); }
+  }
+
+  /* ── Sections ── */
+  .section {
+    padding-block: var(--space-3xl);
+    padding-inline: var(--space-xl);
+  }
+
+  .section--surface {
+    background-color: var(--color-surface);
+  }
+
+  .section__text {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-loose);
+    max-width: 52ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .accent {
+    color: var(--color-accent);
+  }
+
+  /* ── Durchgehender Surface-Hintergrund ab "Dabei sein" bis Footer ── */
+  .bottom-surface {
+    background-color: var(--color-surface);
+  }
+
+  /* ── Steps (Wie funktioniert flowstaite?) ── */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin-block: var(--space-xl) 0;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-lg);
-    margin-block-start: var(--space-lg);
   }
 
-  @media (min-width: 48em) {
-    .services {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .steps__item {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
   }
 
-  .service {
+  .steps__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent);
+    color: var(--color-accent-contrast);
+    font-family: var(--font-serif);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-xl);
+    line-height: 1;
+  }
+
+  .steps__body {
+    flex: 1;
+  }
+
+  .steps__title {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+    margin: 0 0 var(--space-2xs);
+  }
+
+  .steps__text {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin: 0;
+    max-width: 48ch;
+  }
+
+  /* ── Figma Embed ── */
+  .embed-wrapper {
+    position: relative;
+    width: 100%;
+    padding-block-end: 56.25%;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .embed-wrapper__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  /* ── Signup Form ── */
+  .signup-form__field {
     display: flex;
     flex-direction: column;
     gap: var(--space-2xs);
+    flex: 1 1 auto;
+  }
+
+  .signup-form__label {
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+  }
+
+  .signup-form__input {
+    padding: var(--space-xs) var(--space-md);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-xl);
+    transition: border-color var(--duration-fast) var(--ease-standard);
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .signup-form__input::placeholder {
+    color: var(--color-border-strong);
+  }
+
+  .signup-form__input:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-color: var(--color-focus);
+  }
+
+  .signup-form__input[aria-invalid="true"] {
+    border-color: var(--color-error);
+  }
+
+  .signup-form__error {
+    font-size: var(--text-sm);
+    color: var(--color-error);
+  }
+
+  .signup-form__interests {
+    border: 0;
+    padding: 0;
+    margin: 0 0 var(--space-md);
+  }
+
+  .signup-form__legend {
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin-block-end: var(--space-xs);
+  }
+
+  .signup-form__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .signup-pill {
+    cursor: pointer;
+  }
+
+  .signup-pill__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .signup-pill__label {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+    user-select: none;
+  }
+
+  .signup-pill__label:hover {
+    border-color: var(--color-accent);
+  }
+
+  .signup-pill__input:checked + .signup-pill__label {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-accent-contrast);
+  }
+
+  .signup-pill__input:focus-visible + .signup-pill__label {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .signup-form__name-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-block-end: var(--space-sm);
+  }
+
+  @media (min-width: 30em) {
+    .signup-form__name-row {
+      flex-direction: row;
+    }
+
+    .signup-form__name-row .signup-form__field {
+      flex: 1;
+    }
+  }
+
+  .signup-form__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  @media (min-width: 30em) {
+    .signup-form__row {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+  }
+
+  .signup-success__text {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+    color: var(--color-success);
+    margin: 0;
+    padding-block: var(--space-sm);
   }
 </style>

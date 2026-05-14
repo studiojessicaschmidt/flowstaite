@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "flowstaite",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -14,6 +14,8 @@
     "format:check": "prettier --check \"../**/*.{astro,ts,tsx,js,jsx,css,md,json}\" --config ../.prettierrc --ignore-path ../.prettierignore"
   },
   "dependencies": {
+    "@fontsource/radio-canada-big": "^5.2.7",
+    "@fontsource/source-serif-4": "^5.2.9",
     "astro": "^6.1.8"
   },
   "devDependencies": {

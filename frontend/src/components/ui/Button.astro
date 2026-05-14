@@ -72,7 +72,12 @@ const isDisabled = disabled || loading;
     line-height: var(--leading-snug);
     letter-spacing: var(--tracking-normal);
     border: 1px solid transparent;
-    border-radius: var(--radius-md);
+    /*
+     * Studio-Default: weiche Pill-artige Rundung (40px). Spiegelt
+     * radius/xl in der Figma-Library. Pro Kunde überschreibbar via
+     * project-overrides.css, falls eckigere Buttons gewünscht sind.
+     */
+    border-radius: var(--radius-xl);
     cursor: pointer;
     text-decoration: none;
     transition:
@@ -122,14 +127,13 @@ const isDisabled = disabled || loading;
 
   /* Varianten */
   .button--primary {
-    background-color: var(--color-accent);
+    background-color: var(--color-text);
     color: var(--color-accent-contrast);
-    border-color: var(--color-accent);
+    border-color: var(--color-text);
   }
 
   .button--primary:hover:not(:disabled) {
-    background-color: var(--color-text);
-    border-color: var(--color-text);
+    opacity: 0.85;
   }
 
   .button--secondary {

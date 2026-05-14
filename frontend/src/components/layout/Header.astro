@@ -38,52 +38,57 @@ interface Props {
 // Im Kundenprojekt vor Go-Live durch reale Seiten ersetzen. Die
 // Handoff-Checkliste (Einheit 6) und PROJECT_SETUP.md (Einheit 8)
 // enthalten dazu einen Checkpunkt.
-const defaultNav: readonly NavItem[] = [
-  { label: "Start", href: "/" },
-  { label: "Über", href: "/ueber" },
-  { label: "Leistungen", href: "/leistungen" },
-  { label: "Kontakt", href: "/kontakt" },
-];
+const defaultNav: readonly NavItem[] = [];
 
-const { brandName = "[KUNDE: Markenname]", brandHref = "/", navItems = defaultNav } = Astro.props;
+const { brandName = "flowstaite", brandHref = "/", navItems = defaultNav } = Astro.props;
 ---
 
 <header class="site-header">
   <Container as="div" size="default" class="site-header__inner">
-    <a class="site-header__brand" href={brandHref}>{brandName}</a>
+    <a class="site-header__brand" href={brandHref} aria-label={brandName}>
+      <img class="site-header__logo" src="/logo.svg" alt="" width="180" height="34" />
+    </a>
 
-    <button
-      class="site-header__toggle"
-      type="button"
-      data-nav-toggle
-      aria-controls="primary-navigation"
-      aria-expanded="false"
-      aria-label="Menü öffnen"
-    >
-      <span class="site-header__toggle-bar" aria-hidden="true"></span>
-      <span class="site-header__toggle-bar" aria-hidden="true"></span>
-      <span class="site-header__toggle-bar" aria-hidden="true"></span>
-    </button>
+    <div class="site-header__actions">
+      {
+        navItems.length > 0 && (
+          <>
+            <button
+              class="site-header__toggle"
+              type="button"
+              data-nav-toggle
+              aria-controls="primary-navigation"
+              aria-expanded="false"
+              aria-label="Menü öffnen"
+            >
+              <span class="site-header__toggle-bar" aria-hidden="true" />
+              <span class="site-header__toggle-bar" aria-hidden="true" />
+              <span class="site-header__toggle-bar" aria-hidden="true" />
+            </button>
 
-    <nav
-      class="site-header__nav"
-      id="primary-navigation"
-      data-nav-primary
-      data-state="closed"
-      aria-label="Hauptnavigation"
-    >
-      <ul class="site-header__list">
-        {
-          navItems.map((item) => (
-            <li class="site-header__item">
-              <a class="site-header__link" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+            <nav
+              class="site-header__nav"
+              id="primary-navigation"
+              data-nav-primary
+              data-state="closed"
+              aria-label="Hauptnavigation"
+            >
+              <ul class="site-header__list">
+                {navItems.map((item) => (
+                  <li class="site-header__item">
+                    <a class="site-header__link" href={item.href}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </>
+        )
+      }
+
+      <a class="site-header__cta" href="#signup-heading">Mehr erfahren</a>
+    </div>
   </Container>
 </header>
 
@@ -93,11 +98,13 @@ const { brandName = "[KUNDE: Markenname]", brandHref = "/", navItems = defaultNa
 
 <style>
   .site-header {
-    position: sticky;
+    position: fixed;
+    inset-inline: 0;
     inset-block-start: 0;
     z-index: var(--z-sticky);
-    background-color: var(--color-bg);
-    border-block-end: 1px solid var(--color-border);
+    background-color: rgba(255, 244, 223, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .site-header__inner {
@@ -109,16 +116,23 @@ const { brandName = "[KUNDE: Markenname]", brandHref = "/", navItems = defaultNa
   }
 
   .site-header__brand {
-    font-weight: var(--weight-bold);
-    font-size: var(--text-lg);
-    letter-spacing: var(--tracking-tight);
+    display: inline-flex;
+    align-items: center;
     color: var(--color-text);
     text-decoration: none;
+    line-height: 0;
   }
 
-  .site-header__brand:hover {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+  .site-header__logo {
+    display: block;
+    height: clamp(1rem, 2.5vw, 1.5rem);
+    width: auto;
+  }
+
+  .site-header__brand:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
   }
 
   /* ------------------------------------------------------------------
@@ -190,6 +204,37 @@ const { brandName = "[KUNDE: Markenname]", brandHref = "/", navItems = defaultNa
   .site-header__link:hover {
     text-decoration: underline;
     text-underline-offset: 0.2em;
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .site-header__cta {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    color: var(--color-accent-contrast);
+    background-color: var(--color-text);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity var(--duration-fast) var(--ease-standard);
+  }
+
+  .site-header__cta:hover {
+    opacity: 0.85;
+    text-decoration: none;
+  }
+
+  .site-header__cta:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
   }
 
   /* 48em entspricht --bp-md aus tokens.css. */

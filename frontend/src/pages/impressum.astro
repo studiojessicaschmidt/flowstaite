@@ -14,18 +14,31 @@ import Heading from "../components/ui/Heading.astro";
 ---
 
 <BaseLayout
-  title="Impressum, [KUNDE: Markenname]"
+  title="Impressum – flowstaite"
   description="Impressum und Anbieterkennzeichnung nach § 5 TMG."
 >
   <section class="section" aria-labelledby="impressum-heading">
     <Container size="narrow">
       <Heading level={1} id="impressum-heading">Impressum</Heading>
-      <p>
-        [KUNDE: Impressum-Inhalt hier einfügen. Pflichtangaben nach § 5 TMG (Name bzw. Firma,
-        Anschrift, Kontakt, vertretungsberechtigte Person, ggf. Handelsregister und Umsatzsteuer-ID)
-        bitte vom Anbieter liefern. Diese Seite ist bewusst nicht vorausgefüllt, weil die
-        Verantwortung für Richtigkeit und Vollständigkeit beim Anbieter liegt.]
-      </p>
+
+      <p><strong>flowstaite.</strong><br />
+      Verantwortlich: Jessica Schmidt</p>
+
+      <h2>Adresse</h2>
+      <p>Wittekindstraße 30,<br />
+      33615 Bielefeld</p>
+
+      <h2>Kontakt</h2>
+      <p>E-Mail: <a href="mailto:hello@studiojessicaschmidt.de">hello@studiojessicaschmidt.de</a></p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
+      305/5934/6020</p>
+
+      <p>Hinweis: Bei Fragen zum Impressum oder zur Website kontaktieren Sie mich gerne unter:<br />
+      <a href="mailto:hello@studiojessicaschmidt.de">hello@studiojessicaschmidt.de</a></p>
+
+      <p>Stand: Mai 2026</p>
     </Container>
   </section>
 </BaseLayout>

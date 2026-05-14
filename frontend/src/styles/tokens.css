@@ -18,26 +18,37 @@
    * über --color-accent. Kontraste sind auf WCAG 2.1 AA ausgelegt.
    * ------------------------------------------------------------------ */
 
+  /*
+   * Projekt-Palette flowstaite:
+   * - Background:  #FFF4DF (warmer Cream-Ton)
+   * - Text:        #282820 (fast schwarz, leicht warm)
+   * - Accent:      #2378D7 (kräftiges Blau)
+   * - Neutrals:    #76756A (warmes Mittelgrau, für Muted-Text)
+   *                #9EBEDF (helles Blau, weiches Akzent-Surface)
+   */
+
   /* Text */
-  --color-text: #1a1a1a;
-  --color-text-muted: #595959;
-  --color-text-inverse: #ffffff;
+  --color-text: #282820;
+  --color-text-muted: #76756a;
+  --color-text-inverse: #fff4df;
 
   /* Hintergrund */
-  --color-bg: #ffffff;
-  --color-surface: #f7f7f7;
-  --color-surface-alt: #ededed;
+  --color-bg: #fff4df;
+  --color-surface: #f5ebd0;
+  --color-surface-alt: #ebe0c2;
+  --color-surface-accent: #9ebedf;
 
   /* Rand */
-  --color-border: #d9d9d9;
-  --color-border-strong: #8c8c8c;
+  --color-border: #e0d4b3;
+  --color-border-strong: #76756a;
 
-  /* Akzent (vom Kunden überschreiben, z. B. Primärfarbe) */
-  --color-accent: #1a1a1a;
+  /* Akzent */
+  --color-accent: #2378d7;
+  --color-accent-soft: #9ebedf;
   --color-accent-contrast: #ffffff;
 
-  /* Fokus-Ring, deutlich sichtbar auf hellem Hintergrund */
-  --color-focus: #0057ff;
+  /* Fokus-Ring */
+  --color-focus: #2378d7;
 
   /*
    * Generisches Overlay für Pressed-States, funktioniert über alle
@@ -57,8 +68,13 @@
    * durch einen lokal via @fontsource oder WOFF2 geladenen Font.
    * ------------------------------------------------------------------ */
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+  /*
+   * Mengentext: Radio Canada Big (Sans, leicht geometrisch).
+   * Headlines: Source Serif 4 (Serif, ruhige Modulation).
+   * Beide werden über @fontsource lokal geladen, Fallback-Stack greift bei FOIT/FOUT.
+   */
+  --font-sans: "Radio Canada Big", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Schriftgrößen, modulare Skala mit Ratio 1.25 (Major Third), in rem */
@@ -111,6 +127,11 @@
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
+  /*
+   * Sehr weiche Rundung, Studio-Default für Buttons.
+   * Spiegelt radius/xl in der Figma-Library, ergänzt in Einheit 12.
+   */
+  --radius-xl: 2.5rem;
   --radius-pill: 999px;
 
   /* ------------------------------------------------------------------

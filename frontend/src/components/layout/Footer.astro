@@ -32,15 +32,9 @@ interface Props {
 const defaultLegalLinks: readonly FooterLink[] = [
   { label: "Impressum", href: "/impressum" },
   { label: "Datenschutz", href: "/datenschutz" },
-  { label: "AGB", href: "/agb" },
-  { label: "Erklärung zur Barrierefreiheit", href: "/barrierefreiheit" },
 ];
 
-const defaultSocialLinks: readonly FooterLink[] = [
-  { label: "Instagram", href: "[KUNDE: Instagram-URL]" },
-  { label: "LinkedIn", href: "[KUNDE: LinkedIn-URL]" },
-  { label: "Pinterest", href: "[KUNDE: Pinterest-URL]" },
-];
+const defaultSocialLinks: readonly FooterLink[] = [];
 
 const { legalLinks = defaultLegalLinks, socialLinks = defaultSocialLinks } = Astro.props;
 
@@ -64,28 +58,30 @@ const currentYear = new Date().getFullYear();
       </ul>
     </nav>
 
-    <nav class="site-footer__section" aria-label="Social Media">
-      <ul class="site-footer__list">
-        {
-          socialLinks.map((item) => (
-            <li class="site-footer__item">
-              <a
-                class="site-footer__link"
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    {
+      socialLinks.length > 0 && (
+        <nav class="site-footer__section" aria-label="Social Media">
+          <ul class="site-footer__list">
+            {socialLinks.map((item) => (
+              <li class="site-footer__item">
+                <a
+                  class="site-footer__link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
 
     <div class="site-footer__section site-footer__credit">
       <p class="site-footer__copyright">
-        © {currentYear} [KUNDE: Markenname]
+        © {currentYear} flowstaite
       </p>
       <p class="site-footer__studio">
         Design und Entwicklung:
@@ -102,7 +98,6 @@ const currentYear = new Date().getFullYear();
 
 <style>
   .site-footer {
-    margin-block-start: var(--space-3xl);
     padding-block: var(--space-xl);
     background-color: var(--color-surface);
     border-block-start: 1px solid var(--color-border);
