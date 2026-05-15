@@ -408,6 +408,16 @@ import Button from "../components/ui/Button.astro";
     background-color: var(--color-surface);
   }
 
+  /*
+   * Benachbarte Surface-Sections teilen den gleichen Hintergrund,
+   * daher wird das obere Padding der zweiten Section entfernt.
+   * Die erste Section behält ihr volles padding-block-end,
+   * sodass der sichtbare Abstand (6rem) überall gleich bleibt.
+   */
+  .section--surface + .section--surface {
+    padding-block-start: 0;
+  }
+
   .section__text {
     font-size: var(--text-base);
     color: var(--color-text-muted);
@@ -435,6 +445,13 @@ import Button from "../components/ui/Button.astro";
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: var(--space-lg);
+    }
+
+    .team__member {
+      display: grid;
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+      justify-items: center;
     }
   }
 
@@ -479,7 +496,7 @@ import Button from "../components/ui/Button.astro";
 
   @media (min-width: 40em) {
     .team__desc {
-      max-width: 28ch;
+      max-width: 32ch;
       margin-inline: auto;
     }
   }
@@ -515,8 +532,8 @@ import Button from "../components/ui/Button.astro";
     flex-shrink: 0;
     font-family: var(--font-serif);
     font-weight: var(--weight-bold);
-    font-size: clamp(3.5rem, 8vw, 5rem);
-    line-height: 0.85;
+    font-size: 3.75rem;
+    line-height: 0.75;
     color: var(--color-accent);
     width: 2.5rem;
     text-align: left;
@@ -524,7 +541,7 @@ import Button from "../components/ui/Button.astro";
 
   @media (min-width: 40em) {
     .steps__number {
-      width: 4.5rem;
+      width: 3.5rem;
       text-align: center;
     }
   }
@@ -630,7 +647,7 @@ import Button from "../components/ui/Button.astro";
 
   .signup-pill__label {
     display: inline-block;
-    padding: var(--space-sm) var(--space-lg);
+    padding: var(--space-xs) var(--space-md);
     font-size: var(--text-base);
     font-weight: var(--weight-medium);
     line-height: var(--leading-snug);
