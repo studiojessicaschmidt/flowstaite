@@ -260,6 +260,11 @@ import Button from "../components/ui/Button.astro";
           <span class="signup-form__error" id="form-error" aria-live="polite" hidden>
             Bitte fülle alle Felder aus.
           </span>
+
+          <p class="signup-form__privacy">
+            Mit dem Absenden stimmst du der Verarbeitung deiner Daten gemäß unserer
+            <a href="/datenschutz">Datenschutzerklärung</a> zu.
+          </p>
         </form>
 
         <div class="signup-success" id="signup-success" hidden aria-live="polite" role="status">
@@ -629,6 +634,20 @@ import Button from "../components/ui/Button.astro";
   .signup-form__error {
     font-size: var(--text-sm);
     color: var(--color-error);
+  }
+
+  .signup-form__privacy {
+    margin-block-start: var(--space-md);
+    margin-block-end: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+  }
+
+  .signup-form__privacy a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .signup-form__interests {
