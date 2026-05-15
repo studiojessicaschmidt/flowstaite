@@ -48,7 +48,7 @@ import Button from "../components/ui/Button.astro";
   </section>
 
   <!-- Wie funktioniert flowstaite? -->
-  <section class="section section--surface" aria-labelledby="how-heading">
+  <section class="section" aria-labelledby="how-heading">
     <Container size="narrow">
       <Heading level={2} id="how-heading">
         <span>Wie funktioniert flowst</span><span class="accent">ai</span><span>te?</span>
@@ -93,7 +93,7 @@ import Button from "../components/ui/Button.astro";
   </section>
 
   <!-- Wer ist flowstaite? -->
-  <section class="section section--surface" aria-labelledby="team-heading">
+  <section class="section" aria-labelledby="team-heading">
     <Container size="narrow">
       <Heading level={2} id="team-heading">
         <span>Wer ist flowst</span><span class="accent">ai</span><span>te?</span>
@@ -402,31 +402,6 @@ import Button from "../components/ui/Button.astro";
   .section {
     padding-block: var(--space-3xl);
     padding-inline: var(--space-xl);
-  }
-
-  .section--surface {
-    background-color: var(--color-surface);
-  }
-
-  /*
-   * Benachbarte Surface-Sections teilen den gleichen Hintergrund.
-   * Die erste Section gibt ihr unteres Padding ab, die zweite traegt
-   * den kompletten Zwischenabstand. So bleibt die Flaeche durchgehend
-   * eingefaerbt (kein Cream-Spalt durch zusammenfallende Margins).
-   */
-  .section--surface:has(+ .section--surface) {
-    padding-block-end: 0;
-  }
-
-  .section--surface + .section--surface {
-    padding-block-start: var(--space-3xl);
-  }
-
-  /* Desktop: kompakterer Abstand vor "Wer ist flowstaite?". */
-  @media (min-width: 40em) {
-    .section--surface + .section--surface {
-      padding-block-start: var(--space-xl);
-    }
   }
 
   .section__text {
