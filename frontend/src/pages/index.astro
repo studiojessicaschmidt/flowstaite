@@ -409,13 +409,24 @@ import Button from "../components/ui/Button.astro";
   }
 
   /*
-   * Benachbarte Surface-Sections teilen den gleichen Hintergrund,
-   * daher wird das obere Padding der zweiten Section entfernt.
-   * Die erste Section behält ihr volles padding-block-end,
-   * sodass der sichtbare Abstand (6rem) überall gleich bleibt.
+   * Benachbarte Surface-Sections teilen den gleichen Hintergrund.
+   * Die erste Section gibt ihr unteres Padding ab, die zweite traegt
+   * den kompletten Zwischenabstand. So bleibt die Flaeche durchgehend
+   * eingefaerbt (kein Cream-Spalt durch zusammenfallende Margins).
    */
+  .section--surface:has(+ .section--surface) {
+    padding-block-end: 0;
+  }
+
   .section--surface + .section--surface {
-    padding-block-start: 0;
+    padding-block-start: var(--space-3xl);
+  }
+
+  /* Desktop: kompakterer Abstand vor "Wer ist flowstaite?". */
+  @media (min-width: 40em) {
+    .section--surface + .section--surface {
+      padding-block-start: var(--space-xl);
+    }
   }
 
   .section__text {
