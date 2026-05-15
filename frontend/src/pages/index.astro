@@ -462,6 +462,10 @@ import Button from "../components/ui/Button.astro";
       display: grid;
       grid-row: span 3;
       grid-template-rows: subgrid;
+      /* Den vom Eltern-Grid geerbten Zeilenabstand neutralisieren,
+         damit Foto, Name und Beschreibung nur ueber ihre Margins
+         (wie im mobilen Layout) Abstand halten. */
+      row-gap: 0;
       justify-items: center;
     }
   }
@@ -502,7 +506,6 @@ import Button from "../components/ui/Button.astro";
     color: var(--color-text-muted);
     line-height: var(--leading-normal);
     margin: 0;
-    margin-block-start: var(--space-2xs);
   }
 
   @media (min-width: 40em) {
