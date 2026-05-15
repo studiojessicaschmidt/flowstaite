@@ -58,6 +58,13 @@ const { title, description, lang = "de", canonical, ogImage, noindex = false } =
       ogImage={ogImage}
       noindex={noindex}
     />
+    {/* Umami Analytics (Umami Cloud): cookielos, ohne personenbezogene Profile.
+        is:inline gibt das Skript unveraendert aus, damit Astro es nicht buendelt. */}
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="48b57848-2145-47c8-a625-b31f706034ba"></script>
   </head>
   <body>
     <SkipLink />
