@@ -39,25 +39,11 @@ import Button from "../components/ui/Button.astro";
         <span>Was ist flowst</span><span class="accent">ai</span><span>te?</span>
       </Heading>
       <p class="section__text">
-        flowstaite ist ein digitaler KI-Praktikant, der zusieht, lernt, Muster
+        flowstaite ist ein digitaler KI-Kollege, der zusieht, lernt, Muster
         erkennt und dann eigenständig Routine-Aufgaben erledigt. Eine
-        Agent-First-Software, die euch dort hilft, wo es am meisten nützt.
+        Agent-First-Software, die euch während der Arbeit dort unterstützt,
+        wo es am meisten nützt.
       </p>
-    </Container>
-  </section>
-
-  <!-- Pitch Deck Embed -->
-  <section class="section section--surface" aria-labelledby="pitch-heading">
-    <Container size="narrow">
-      <div class="embed-wrapper">
-        <iframe
-          class="embed-wrapper__iframe"
-          src="https://embed.figma.com/deck/gLnpF0bnQ0XukvnKrY4Ulm/Startup-School-Pitch-v5?node-id=1-45&embed-host=share"
-          allowfullscreen
-          loading="lazy"
-          title="flowstaite Pitch Deck"
-        ></iframe>
-      </div>
     </Container>
   </section>
 
@@ -73,8 +59,9 @@ import Button from "../components/ui/Button.astro";
           <div class="steps__body">
             <h3 class="steps__title">Lernen</h3>
             <p class="steps__text">
-              flowstaite beobachtet euer Onboarding, eure Workflows,
-              Lieferant:innen und Vorgaben. Es versteht, wie euer Betrieb tickt.
+              flowstaite fragt, ob er den Bildschirm sehen darf und beobachtet
+              dann nur die Workflows die freigegeben wurden. Es versteht, wie
+              euer Betrieb tickt, fragt nach und erkennt Muster.
             </p>
           </div>
         </li>
@@ -83,8 +70,10 @@ import Button from "../components/ui/Button.astro";
           <div class="steps__body">
             <h3 class="steps__title">Vorschlagen</h3>
             <p class="steps__text">
-              Ihr reviewt jeden Vorschlag. Der Agent lernt aus euren Korrekturen
-              und wird mit jeder Runde besser.
+              Hat der Agent einen Überblick über das Unternehmen und die
+              verschiedenen Abteilungen, schlägt flowstaite euch Verbesserungen
+              vor. Ihr reviewt jeden Vorschlag. flowstaite lernt aus euren
+              Korrekturen und wird mit jeder Runde besser.
             </p>
           </div>
         </li>
@@ -93,8 +82,10 @@ import Button from "../components/ui/Button.astro";
           <div class="steps__body">
             <h3 class="steps__title">Übernehmen</h3>
             <p class="steps__text">
-              Ihr bestätigt nur noch den Output. Der Agent arbeitet
-              selbstständig, ihr behaltet die Kontrolle.
+              Wir setzen dabei auf den Human in the Loop, nichts soll ausgeführt
+              werden ohne vorher menschlich geprüft worden zu sein. Ist das
+              Vorhaben freigegeben, arbeitet flowstaite selbstständig, ihr
+              behaltet die Kontrolle über das was passiert.
             </p>
           </div>
         </li>
@@ -107,9 +98,13 @@ import Button from "../components/ui/Button.astro";
     <Container size="narrow">
       <Heading level={2} id="together-heading">Gemeinsam gestalten,<br />was als Nächstes kommt.</Heading>
       <p class="section__text">
-        flowstaite befindet sich im Aufbau. Wenn du dabei sein möchtest, als
-        Mitentwickler:in oder einfach neugierig auf das, was entsteht, freuen
-        wir uns über deine Mailadresse.
+        flowstaite befindet sich im Aufbau. Aktuell suchen wir noch nach
+        weiteren Unternehmen, welche mit uns gemeinsam weiterentwickeln, um
+        so zusammen aus flowstaite die qualitativ hochwertigste Hilfestellung
+        für Mitarbeitende und Unternehmen schaffen zu können. Um so gut zu
+        helfen wie möglich, brauchen wir aktiven Austausch mit verschiedenen
+        Perspektiven. Wenn du jedoch neugierig auf das, was entsteht, freuen
+        wir uns darüber, dich auf dem Laufenden zu halten.
       </p>
     </Container>
   </section>
@@ -128,9 +123,11 @@ import Button from "../components/ui/Button.astro";
           class="signup-form"
           id="signup-form"
           method="POST"
-          action="https://formspree.io/f/REPLACE_WITH_FORM_ID"
+          action="https://api.web3forms.com/submit"
           novalidate
         >
+          <input type="hidden" name="access_key" value="6659ce9d-9197-4594-8573-f0f163e3e183" />
+          <input type="hidden" name="subject" value="Neue Anmeldung – flowstaite" />
           <fieldset class="signup-form__interests">
             <legend class="signup-form__legend">Was interessiert dich?</legend>
             <div class="signup-form__pills">
@@ -425,24 +422,6 @@ import Button from "../components/ui/Button.astro";
     line-height: var(--leading-normal);
     margin: 0;
     max-width: 48ch;
-  }
-
-  /* ── Figma Embed ── */
-  .embed-wrapper {
-    position: relative;
-    width: 100%;
-    padding-block-end: 56.25%;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-  }
-
-  .embed-wrapper__iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
   }
 
   /* ── Signup Form ── */
