@@ -92,6 +92,62 @@ import Button from "../components/ui/Button.astro";
     </Container>
   </section>
 
+  <!-- Wer ist flowstaite? -->
+  <section class="section section--surface" aria-labelledby="team-heading">
+    <Container size="narrow">
+      <Heading level={2} id="team-heading">
+        <span>Wer ist flowst</span><span class="accent">ai</span><span>te?</span>
+      </Heading>
+      <p class="section__text">
+        Drei Perspektiven, eine Vision.
+      </p>
+      <ul class="team" role="list">
+        <li class="team__member">
+          <img
+            class="team__photo"
+            src="/images/team/luca.jpg"
+            alt="Portrait von Luca"
+            width="600"
+            height="600"
+            loading="lazy"
+          />
+          <h3 class="team__name">Luca <span class="team__role">CEO</span></h3>
+          <p class="team__desc">
+            Informatik & Wirtschaft. Architektur und Business Development.
+          </p>
+        </li>
+        <li class="team__member">
+          <img
+            class="team__photo"
+            src="/images/team/jessica.jpg"
+            alt="Portrait von Jessica"
+            width="600"
+            height="600"
+            loading="lazy"
+          />
+          <h3 class="team__name">Jessica <span class="team__role">CMO</span></h3>
+          <p class="team__desc">
+            Kommunikationsdesign. Produktvision, User & Agentic Experience.
+          </p>
+        </li>
+        <li class="team__member">
+          <img
+            class="team__photo"
+            src="/images/team/vincent.jpg"
+            alt="Portrait von Vincent"
+            width="600"
+            height="600"
+            loading="lazy"
+          />
+          <h3 class="team__name">Vincent <span class="team__role">CTO</span></h3>
+          <p class="team__desc">
+            Intelligente interaktive Systeme. KI und Backend.
+          </p>
+        </li>
+      </ul>
+    </Container>
+  </section>
+
   <!-- Gemeinsam gestalten -->
   <section class="section" aria-labelledby="together-heading">
     <Container size="narrow">
@@ -364,6 +420,70 @@ import Button from "../components/ui/Button.astro";
     color: var(--color-accent);
   }
 
+  /* ── Team (Wer ist flowstaite?) ── */
+  .team {
+    list-style: none;
+    padding: 0;
+    margin-block: var(--space-xl) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 40em) {
+    .team {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+  }
+
+  .team__member {
+    text-align: center;
+  }
+
+  .team__photo {
+    width: min(100%, 12rem);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-pill);
+    margin-inline: auto;
+    display: block;
+    filter: grayscale(1);
+  }
+
+  .team__name {
+    font-family: var(--font-serif);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+    color: var(--color-text);
+    margin-block: var(--space-md) var(--space-2xs);
+  }
+
+  .team__role {
+    font-family: var(--font-sans);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .team__desc {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin: 0;
+    margin-block-start: var(--space-2xs);
+  }
+
+  @media (min-width: 40em) {
+    .team__desc {
+      max-width: 28ch;
+      margin-inline: auto;
+    }
+  }
+
   /* ── Durchgehender Surface-Hintergrund ab "Dabei sein" bis Footer ── */
   .bottom-surface {
     background-color: var(--color-surface);
@@ -386,19 +506,14 @@ import Button from "../components/ui/Button.astro";
   }
 
   .steps__number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-accent);
-    color: var(--color-accent-contrast);
     font-family: var(--font-serif);
     font-weight: var(--weight-bold);
-    font-size: var(--text-xl);
+    font-size: clamp(2rem, 4vw, 2.5rem);
     line-height: 1;
+    color: var(--color-accent);
+    width: 2.5rem;
+    text-align: center;
   }
 
   .steps__body {
