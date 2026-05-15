@@ -501,19 +501,32 @@ import Button from "../components/ui/Button.astro";
 
   .steps__item {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-xs);
     align-items: flex-start;
+  }
+
+  @media (min-width: 40em) {
+    .steps__item {
+      gap: var(--space-md);
+    }
   }
 
   .steps__number {
     flex-shrink: 0;
     font-family: var(--font-serif);
     font-weight: var(--weight-bold);
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    line-height: 1;
+    font-size: clamp(3.5rem, 8vw, 5rem);
+    line-height: 0.85;
     color: var(--color-accent);
     width: 2.5rem;
-    text-align: center;
+    text-align: left;
+  }
+
+  @media (min-width: 40em) {
+    .steps__number {
+      width: 4.5rem;
+      text-align: center;
+    }
   }
 
   .steps__body {
